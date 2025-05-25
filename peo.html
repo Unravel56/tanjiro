@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeStream - Tu portal de anime</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hover-scale {
+            transition: all 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+        .anime-card {
+            transition: all 0.3s ease;
+        }
+
+
+        .text-accent {
+            color: #f3c669;
+        }
+
+        .bg-accent {
+            background-color: #f3c669;
+        }
+
+        .border-accent {
+            border-color: #f3c669;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .anime-grid {
+            display: grid;
+            gap: 0.75rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 640px) {
+            .anime-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .anime-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1536px) {
+            .anime-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+        }
+
+        .episode-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .episode-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            pointer-events: none;
+        }
+
+        .bg-none {
+            background: none !important;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <header class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md z-50 border-b border-gray-800">
+        <div class="container mx-auto" style="padding-left: 49px; padding-right: 49px;">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+                            <i class="fas fa-play text-black"></i>
+                        </div>
+                        <span class="text-xl font-bold">AnimeStream</span>
+                    </a>
+                    <nav class="hidden lg:flex items-center space-x-6">
+                        <a href="#" class="hover:text-accent transition-colors">Inicio</a>
+                        <a href="#" class="hover:text-accent transition-colors">Catálogo</a>
+                        <a href="#" class="hover:text-accent transition-colors">Tendencia</a>
+                        <a href="#" class="hover:text-accent transition-colors">Top</a>
+                    </nav>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden lg:block">
+                        <div class="relative">
+                            <input type="text" placeholder="Buscar anime..." 
+                                class="bg-gray-800 rounded-full pl-10 pr-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <button class="w-10 h-10 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button class="lg:hidden" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-40 hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Inicio</a>
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Catálogo</a>
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Tendencia</a>
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Top</a>
+            <button id="closeMobileMenu" class="mt-8 text-gray-400">
+                <i class="fas fa-times text-3xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <main class="container mx-auto pt-24 pb-12" style="padding-left: 49px; padding-right: 49px;">
+        <section class="mb-12 relative h-64 md:h-96 rounded-lg overflow-hidden bg-gray-900">
+            <div class="absolute inset-0">
+                <img src="https://m.media-amazon.com/images/S/pv-target-images/55154728a7c50336ef32b7fe79276f77e4a6ee612a3822c8852c543246fd0e89._SX1080_FMpng_.png" 
+                    alt="Featured Anime" class="w-full h-full object-cover opacity-80">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+            </div>
+            <div class="relative h-full flex items-end p-6 md:p-12">
+                <div class="max-w-2xl">
+                    <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">Demon Slayer: Arco del Herrero</h1>
+                    <p class="text-sm md:text-base text-gray-300 mb-4 md:mb-6 line-clamp-2">
+                        Tanjiro viaja a la aldea de los herreros para reparar su espada. Allí se encuentra con dos Pilares y debe enfrentar a demonios de rango superior.
+                    </p>
+                    <div class="flex gap-3 md:gap-4">
+                        <button class="bg-accent hover:bg-yellow-400 text-black font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
+                            <i class="fas fa-play"></i>
+                            <span>Ver Ahora</span>
+                        </button>
+                        <button class="bg-gray-800 hover:bg-gray-700 font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Más Info</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold">Últimos Capítulos</h2>
+                <a href="#" class="text-accent hover:text-yellow-400 transition-colors flex items-center space-x-1">
+                    <span>Ver todo</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="anime-grid">
+                <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer hover-scale">
+                    <div class="aspect-[16/9] relative">
+                        <img src="https://latanime.org/assets/img/serie/episodio/kuroshitsuji-midori-no-majo-hen-5-1748117542.jpg" 
+                            alt="Kuroshitsuji" class="w-full h-full object-cover">
+                        <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 5</div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm mb-1">Kuroshitsuji: Midori no Majo-hen</h3>
+                        <p class="text-xs text-gray-400">Hace 2 horas</p>
+                    </div>
+                </div>
+
+                <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer hover-scale">
+                    <div class="aspect-[16/9] relative">
+                        <img src="https://latanime.org/assets/img/serie/episodio/de-viejo-pueblerino-a-gran-maestro-espadachin-latino-8-1748114112.jpg" 
+                            alt="Espadachín" class="w-full h-full object-cover">
+                        <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 8</div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm mb-1">De Viejo Pueblerino a Gran Maestro Espadachín</h3>
+                        <p class="text-xs text-gray-400">Hace 3 horas</p>
+                    </div>
+                </div>
+
+                <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer hover-scale">
+                    <div class="aspect-[16/9] relative">
+                        <img src="https://latanime.org/assets/img/serie/episodio/de-viejo-pueblerino-a-gran-maestro-espadachin-castellano-8-1748115093.jpg" 
+                            alt="One Piece" class="w-full h-full object-cover">
+                        <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 1089</div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm mb-1">One Piece</h3>
+                        <p class="text-xs text-gray-400">Hace 5 horas</p>
+                    </div>
+                </div>
+
+                <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer hover-scale">
+                    <div class="aspect-[16/9] relative">
+                        <img src="https://latanime.org/assets/img/serie/episodio/witch-watch-4-1747558502.jpg" 
+                            alt="Chainsaw Man" class="w-full h-full object-cover">
+                        <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 12</div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm mb-1">Chainsaw Man</h3>
+                        <p class="text-xs text-gray-400">Hace 6 horas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const closeMobileMenu = document.getElementById("closeMobileMenu");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        mobileMenuBtn.addEventListener("click", () => {
+            mobileMenu.classList.remove("hidden");
+        });
+
+        closeMobileMenu.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+        });
+    </script>
+</body>
+</html>
