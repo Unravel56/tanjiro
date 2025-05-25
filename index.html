@@ -21,10 +21,13 @@
             transform: scale(1.05);
         }
 
+        .hover-scale2{
+            transform: scale(2);
+        }
+
         .anime-card {
             transition: all 0.3s ease;
         }
-
 
         .text-accent {
             color: #f3c669;
@@ -113,6 +116,162 @@
         .bg-none {
             background: none !important;
         }
+
+        /* Slider Styles */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .slider-item {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 20;
+            border: none;
+        }
+
+        .slider-nav:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-nav.prev {
+            left: 20px;
+        }
+
+        .slider-nav.next {
+            right: 20px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 20;
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: #f3c669;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Series Card Styles */
+        .series-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .series-card:hover .series-overlay {
+            opacity:1;
+        }
+      
+        .series-card:hover .series-info {
+            transform: translateY(0);
+        }
+
+        .series-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .series-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .series-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        /* Mobile Search Animation */
+        #mobileSearch {
+            transition: all 0.3s ease;
+        }
+
+        #mobileSearch.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: #f3c669;
+            transition: width 0.3s ease;
+        }
+
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        .shimmer {
+            animation: shimmer 2s infinite;
+            background: linear-gradient(to right, #1a1a1a 4%, #2a2a2a 25%, #1a1a1a 36%);
+            background-size: 1000px 100%;
+        }
     </style>
 </head>
 <body class="bg-black text-white">
@@ -144,6 +303,9 @@
                     <button class="w-10 h-10 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
                         <i class="fas fa-user"></i>
                     </button>
+                    <button id="mobileSearchBtn" class="lg:hidden w-10 h-10 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
                     <button class="lg:hidden" id="mobileMenuBtn">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -152,7 +314,8 @@
         </div>
     </header>
 
-    <div id="mobileMenu" class="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-40 hidden">
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-[60] hidden">
         <div class="flex flex-col items-center justify-center h-full space-y-8">
             <a href="#" class="text-2xl hover:text-accent transition-colors">Inicio</a>
             <a href="#" class="text-2xl hover:text-accent transition-colors">Catálogo</a>
@@ -164,33 +327,124 @@
         </div>
     </div>
 
-    <main class="container mx-auto pt-24 pb-12" style="padding-left: 49px; padding-right: 49px;">
-        <section class="mb-12 relative h-64 md:h-96 rounded-lg overflow-hidden bg-gray-900">
-            <div class="absolute inset-0">
-                <img src="https://m.media-amazon.com/images/S/pv-target-images/55154728a7c50336ef32b7fe79276f77e4a6ee612a3822c8852c543246fd0e89._SX1080_FMpng_.png" 
-                    alt="Featured Anime" class="w-full h-full object-cover opacity-80">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+    <!-- Mobile Search -->
+    <div id="mobileSearch" class="fixed top-16 inset-x-0 bg-gray-900/95 backdrop-blur-md z-[55] p-4 transform -translate-y-full opacity-0">
+        <div class="relative">
+            <input type="text" placeholder="Buscar anime..." 
+                class="bg-gray-800 text-white w-full rounded-full py-3 pl-12 pr-12 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button id="closeMobileSearch" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+        <div class="mt-4 text-sm text-gray-400">
+            <p class="mb-2">Búsquedas populares:</p>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-800 px-3 py-1 rounded-full">One Piece</span>
+                <span class="bg-gray-800 px-3 py-1 rounded-full">Demon Slayer</span>
+                <span class="bg-gray-800 px-3 py-1 rounded-full">Jujutsu Kaisen</span>
             </div>
-            <div class="relative h-full flex items-end p-6 md:p-12">
-                <div class="max-w-2xl">
-                    <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">Demon Slayer: Arco del Herrero</h1>
-                    <p class="text-sm md:text-base text-gray-300 mb-4 md:mb-6 line-clamp-2">
-                        Tanjiro viaja a la aldea de los herreros para reparar su espada. Allí se encuentra con dos Pilares y debe enfrentar a demonios de rango superior.
-                    </p>
-                    <div class="flex gap-3 md:gap-4">
-                        <button class="bg-accent hover:bg-yellow-400 text-black font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
-                            <i class="fas fa-play"></i>
-                            <span>Ver Ahora</span>
-                        </button>
-                        <button class="bg-gray-800 hover:bg-gray-700 font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
-                            <i class="fas fa-info-circle"></i>
-                            <span>Más Info</span>
-                        </button>
+        </div>
+    </div>
+
+    <main class="container mx-auto pt-24 pb-12" style="padding-left: 49px; padding-right: 49px;">
+        <!-- Hero Slider -->
+        <section class="mb-12 relative h-64 md:h-96 rounded-lg overflow-hidden bg-gray-900 slider-container">
+            <div class="slider-wrapper" id="sliderWrapper">
+                <!-- Slide 1 -->
+                <div class="slider-item">
+                    <img src="https://m.media-amazon.com/images/S/pv-target-images/55154728a7c50336ef32b7fe79276f77e4a6ee612a3822c8852c543246fd0e89._SX1080_FMpng_.png" 
+                        alt="Demon Slayer" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-end p-6 md:p-12">
+                        <div class="max-w-2xl">
+                            <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">Demon Slayer: Arco del Herrero</h1>
+                            <p class="text-sm md:text-base text-gray-300 mb-4 md:mb-6 line-clamp-2">
+                                Tanjiro viaja a la aldea de los herreros para reparar su espada. Allí se encuentra con dos Pilares y debe enfrentar a demonios de rango superior.
+                            </p>
+                            <div class="flex gap-3 md:gap-4">
+                                <button class="bg-accent hover:bg-yellow-400 text-black font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
+                                    <i class="fas fa-play"></i>
+                                    <span>Ver Ahora</span>
+                                </button>
+                                <button class="bg-gray-800 hover:bg-gray-700 font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Más Info</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slider-item">
+                    <img src="https://m.media-amazon.com/images/S/pv-target-images/c3c9428567fd92d00815ab07ed2764bb3727bf4467caf47996474289174acc81._SX1080_FMjpg_.jpg" 
+                        alt="Attack on Titan" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-end p-6 md:p-12">
+                        <div class="max-w-2xl">
+                            <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">Attack on Titan: Final Season</h1>
+                            <p class="text-sm md:text-base text-gray-300 mb-4 md:mb-6 line-clamp-2">
+                                La batalla final por la humanidad comienza. Eren y sus amigos enfrentan decisiones imposibles mientras el mundo entero está en juego.
+                            </p>
+                            <div class="flex gap-3 md:gap-4">
+                                <button class="bg-accent hover:bg-yellow-400 text-black font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
+                                    <i class="fas fa-play"></i>
+                                    <span>Ver Ahora</span>
+                                </button>
+                                <button class="bg-gray-800 hover:bg-gray-700 font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Más Info</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slider-item">
+                    <img src="https://coanime.s3.us-east-2.amazonaws.com/posts/30903a09b9c57fcae2cdc2330584306d56992f25f777d8259d486afb5d06d778.webp" 
+                        alt="Jujutsu Kaisen" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-end p-6 md:p-12">
+                        <div class="max-w-2xl">
+                            <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">Jujutsu Kaisen 0</h1>
+                            <p class="text-sm md:text-base text-gray-300 mb-4 md:mb-6 line-clamp-2">
+                                La historia de Yuta Okkotsu y su maldición. Descubre los orígenes antes de los eventos de la serie principal.
+                            </p>
+                            <div class="flex gap-3 md:gap-4">
+                                <button class="bg-accent hover:bg-yellow-400 text-black font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
+                                    <i class="fas fa-play"></i>
+                                    <span>Ver Ahora</span>
+                                </button>
+                                <button class="bg-gray-800 hover:bg-gray-700 font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Más Info</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Slider Controls -->
+            <button class="slider-nav prev" onclick="changeSlide(-1)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-nav next" onclick="changeSlide(1)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <!-- Slider Dots -->
+            <div class="slider-dots">
+                <span class="slider-dot active" onclick="goToSlide(0)"></span>
+                <span class="slider-dot" onclick="goToSlide(1)"></span>
+                <span class="slider-dot" onclick="goToSlide(2)"></span>
+            </div>
         </section>
 
+
+        <!-- Últimos Capítulos -->
         <section class="mb-12">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-2xl md:text-3xl font-bold">Últimos Capítulos</h2>
@@ -201,11 +455,12 @@
             </div>
 
             <div class="anime-grid">
-                <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer hover-scale">
-                    <div class="aspect-[16/9] relative">
+                <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer">
+                    <div class="aspect-[16/9] relative hover-scale">
                         <img src="https://latanime.org/assets/img/serie/episodio/kuroshitsuji-midori-no-majo-hen-5-1748117542.jpg" 
                             alt="Kuroshitsuji" class="w-full h-full object-cover">
                         <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 5</div>
+                        <div class="progress-bar" style="width: 45%;"></div>
                     </div>
                     <div class="p-3">
                         <h3 class="font-bold text-sm mb-1">Kuroshitsuji: Midori no Majo-hen</h3>
@@ -214,7 +469,7 @@
                 </div>
 
                 <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer hover-scale">
-                    <div class="aspect-[16/9] relative">
+                    <div class="aspect-[16/9] relative hover-scale">
                         <img src="https://latanime.org/assets/img/serie/episodio/de-viejo-pueblerino-a-gran-maestro-espadachin-latino-8-1748114112.jpg" 
                             alt="Espadachín" class="w-full h-full object-cover">
                         <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 8</div>
@@ -226,10 +481,11 @@
                 </div>
 
                 <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer hover-scale">
-                    <div class="aspect-[16/9] relative">
+                    <div class="aspect-[16/9] relative hover-scale">
                         <img src="https://latanime.org/assets/img/serie/episodio/de-viejo-pueblerino-a-gran-maestro-espadachin-castellano-8-1748115093.jpg" 
                             alt="One Piece" class="w-full h-full object-cover">
                         <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 1089</div>
+                        <div class="progress-bar" style="width: 80%;"></div>
                     </div>
                     <div class="p-3">
                         <h3 class="font-bold text-sm mb-1">One Piece</h3>
@@ -238,32 +494,379 @@
                 </div>
 
                 <div class="anime-card bg-none rounded-lg overflow-hidden cursor-pointer hover-scale">
-                    <div class="aspect-[16/9] relative">
+                    <div class="aspect-[16/9] relative hover-scale">
                         <img src="https://latanime.org/assets/img/serie/episodio/witch-watch-4-1747558502.jpg" 
-                            alt="Chainsaw Man" class="w-full h-full object-cover">
-                        <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 12</div>
+                            alt="Witch Watch" class="w-full h-full object-cover">
+                        <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 4</div>
                     </div>
                     <div class="p-3">
-                        <h3 class="font-bold text-sm mb-1">Chainsaw Man</h3>
+                        <h3 class="font-bold text-sm mb-1">Witch Watch</h3>
                         <p class="text-xs text-gray-400">Hace 6 horas</p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Continuando con el visionado -->
+        <section class="mb-12">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold">Continuar Viendo</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-gray-900 rounded-lg overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all">
+                    <div class="aspect-video relative">
+                        <img src="https://latanime.org/assets/img/serie/episodio/witch-watch-5-1748163290.jpg" 
+                            alt="My Hero Academia" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
+                                <i class="fas fa-play text-black text-xl ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
+                            <div class="h-full bg-accent" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">My Hero Academia</h3>
+                        <p class="text-sm text-gray-400">S6 E15 - "El plan de Deku"</p>
+                        <p class="text-xs text-gray-500 mt-1">14:32 restantes</p>
+                    </div>
+                </div>
+
+                 <div class="bg-gray-900 rounded-lg overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all">
+                    <div class="aspect-video relative">
+                        <img src="https://latanime.org/thumbs/imagen/anne-shirley-latino-1745703268.jpg?v=1.5" 
+                            alt="My Hero Academia" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
+                                <i class="fas fa-play text-black text-xl ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
+                            <div class="h-full bg-accent" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">My Hero Academia</h3>
+                        <p class="text-sm text-gray-400">S6 E15 - "El plan de Deku"</p>
+                        <p class="text-xs text-gray-500 mt-1">14:32 restantes</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 rounded-lg overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all">
+                    <div class="aspect-video relative">
+                        <img src="https://latanime.org/assets/img/serie/episodio/detective-de-la-mesa-castellano-8-1748069257.jpg" 
+                            alt="Tokyo Revengers" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
+                                <i class="fas fa-play text-black text-xl ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
+                            <div class="h-full bg-accent" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">Tokyo Revengers</h3>
+                        <p class="text-sm text-gray-400">S3 E8 - "La decisión de Takemichi"</p>
+                        <p class="text-xs text-gray-500 mt-1">18:45 restantes</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 rounded-lg overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all">
+                    <div class="aspect-video relative">
+                        <img src="https://latanime.org/assets/img/serie/episodio/bye-bye-earth-latino-15-1748041089.jpg" 
+                            alt="Mob Psycho 100" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <button class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
+                                <i class="fas fa-play text-black text-xl ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
+                            <div class="h-full bg-accent" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold mb-1">Mob Psycho 100</h3>
+                        <p class="text-sm text-gray-400">S2 E10 - "Colapso"</p>
+                        <p class="text-xs text-gray-500 mt-1">2:15 restantes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Series Recientes -->
+        <section class="mb-12">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl md:text-3xl font-bold flex items-center gap-3">
+                    <div class="w-1 h-8 bg-accent rounded"></div>
+                    Series Recientes
+                </h2>
+                <a href="#" class="text-accent hover:text-yellow-400 transition-colors flex items-center space-x-1">
+                    <span>Ver todo</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                <!-- Serie 1 -->
+                <div class="series-card group">
+                    <div class="relative aspect-[3/4] rounded-lg overflow-hidden bg-gray-900">
+                        <img src="https://latanime.org/thumbs/imagen/anne-shirley-latino-1745703268.jpg?v=1.5" 
+                            alt="Frieren" class="w-full h-full object-cover transition-transform duration-300">
+                        <div class="series-overlay">
+                            <div class="series-info">
+                                <h3 class="font-bold text-sm mb-1">Frieren</h3>
+                                <p class="text-xs text-gray-300 mb-2">26 episodios</p>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="bg-accent text-black px-2 py-1 rounded font-bold">9.5</span>
+                                    <span class="text-gray-400">Fantasía</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
+                            NUEVO
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Serie 2 -->
+                <div class="series-card group">
+                    <div class="relative aspect-[3/4] rounded-lg overflow-hidden bg-gray-900">
+                        <img src="https://latanime.org/thumbs/imagen/mono-latino-1746315759.jpg?v=1.5" 
+                            alt="Solo Leveling" class="w-full h-full object-cover transition-transform duration-300">
+                        <div class="series-overlay">
+                            <div class="series-info">
+                                <h3 class="font-bold text-sm mb-1">Solo Leveling</h3>
+                                <p class="text-xs text-gray-300 mb-2">12 episodios</p>
+                                <div class="flex items-center gap-2 text-xs">
+                                    <span class="bg-accent text-black px-2 py-1 rounded font-bold">8.9</span>
+                                    <span class="text-gray-400">Acción</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+                            EN EMISIÓN
+                        </div>
+                    </div>
+                </div>
+
+             
+            </div>
+        </section>
+
+
+
+        
+
+
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 mt-20">
+        <div class="container mx-auto py-12 px-6 lg:px-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-bold mb-4">Navegación</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Inicio</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Catálogo</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Nuevos Episodios</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Populares</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Géneros</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Acción</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Romance</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Comedia</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Seinen</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Ayuda</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contacto</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Términos de uso</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacidad</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Síguenos</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2024 AnimeStream. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
+        // Mobile Menu
         const mobileMenuBtn = document.getElementById("mobileMenuBtn");
         const closeMobileMenu = document.getElementById("closeMobileMenu");
         const mobileMenu = document.getElementById("mobileMenu");
 
         mobileMenuBtn.addEventListener("click", () => {
             mobileMenu.classList.remove("hidden");
+            mobileMenu.classList.add("flex");
         });
 
         closeMobileMenu.addEventListener("click", () => {
             mobileMenu.classList.add("hidden");
+            mobileMenu.classList.remove("flex");
         });
+
+        // Mobile Search
+        const mobileSearchBtn = document.getElementById("mobileSearchBtn");
+        const closeMobileSearch = document.getElementById("closeMobileSearch");
+        const mobileSearch = document.getElementById("mobileSearch");
+
+        mobileSearchBtn.addEventListener("click", () => {
+            mobileSearch.classList.add("active");
+        });
+
+        closeMobileSearch.addEventListener("click", () => {
+            mobileSearch.classList.remove("active");
+        });
+
+        // Click outside to close mobile menu
+        mobileMenu.addEventListener("click", (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.classList.add("hidden");
+                mobileMenu.classList.remove("flex");
+            }
+        });
+
+        // Slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-item');
+        const dots = document.querySelectorAll('.slider-dot');
+        const sliderWrapper = document.getElementById('sliderWrapper');
+
+        function updateSlider() {
+            sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide < 0) {
+                currentSlide = slides.length - 1;
+            } else if (currentSlide >= slides.length) {
+                currentSlide = 0;
+            }
+            
+            updateSlider();
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateSlider();
+        }
+
+        // Auto-play slider
+        let autoPlayInterval = setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // Pause auto-play on hover
+        const sliderContainer = document.querySelector('.slider-container');
+        sliderContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+        });
+
+        sliderContainer.addEventListener('mouseleave', () => {
+            autoPlayInterval = setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        });
+
+        // Smooth scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('slide-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all anime cards and series cards
+        document.querySelectorAll('.anime-card, .series-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Search functionality
+        const searchInputs = document.querySelectorAll('input[type="text"]');
+        searchInputs.forEach(input => {
+            input.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                // Here you would implement actual search functionality
+                console.log('Searching for:', searchTerm);
+            });
+        });
+
+        // Keyboard navigation for slider
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+
+        // Touch gestures for mobile slider
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        sliderContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        sliderContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                changeSlide(1); // Swipe left
+            }
+            if (touchEndX > touchStartX + 50) {
+                changeSlide(-1); // Swipe right
+            }
+        }
     </script>
 </body>
 </html>
