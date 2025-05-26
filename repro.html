@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeStream - Viendo: [Nombre del Episodio] - [Nombre de la Serie]</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> </head>
+<body class="antialiased"> 
+   <header id="mainHeader" class="fixed top-0 w-full z-50 header-scrolled"> <div class="container mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <div class="flex items-center space-x-4 lg:space-x-6">
+                    <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
+                        <div class="w-9 h-9 lg:w-10 lg:h-10 bg-accent rounded-lg flex items-center justify-center shadow-md">
+                            <i class="fas fa-play text-black text-base lg:text-lg"></i>
+                        </div>
+                        <span class="text-lg lg:text-2xl font-bold text-white">AnimeStream</span>
+                    </a>
+                    <nav class="hidden lg:flex items-center space-x-4 xl:space-x-5">
+                        <a href="index.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Inicio</a>
+                        <a href="catalogo.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Catálogo</a>
+                        <a href="tendencia.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Tendencia</a>
+                        <a href="top.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Top</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center space-x-2 lg:space-x-3 flex-shrink-0">
+                    <div class="hidden lg:block relative">
+                        <button id="desktopSearchBtn" class="text-gray-300 hover:text-accent transition-colors p-2 group" title="Buscar">
+                            <i class="fas fa-search text-lg"></i>
+                        </button>
+                        <div id="desktopSearchInputContainer" class="hidden absolute right-0 top-full mt-2 w-72">
+                             <input type="text" placeholder="Buscar anime..." class="bg-gray-800 text-white w-full rounded-full py-2.5 px-5 focus:outline-none focus:ring-2 ring-accent transition-all text-sm shadow-lg">
+                        </div>
+                    </div>
+                    <button title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                        <i class="fas fa-user text-base lg:text-lg"></i>
+                    </button>
+                    <button id="mobileSearchBtn" title="Buscar" class="lg:hidden w-9 h-9 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                        <i class="fas fa-search text-base"></i>
+                    </button>
+                    <button class="lg:hidden text-gray-300 hover:text-accent transition-colors p-1" id="mobileMenuBtn" title="Menú">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-950/95 backdrop-blur-lg z-[60] mobile-panel">
+        <div class="flex flex-col items-center justify-center h-full space-y-6">
+            <a href="index.html" class="text-2xl text-gray-200 hover:text-accent transition-colors">Inicio</a>
+            <a href="catalogo.html" class="text-2xl text-gray-200 hover:text-accent transition-colors">Catálogo</a>
+            <a href="tendencia.html" class="text-2xl text-gray-200 hover:text-accent transition-colors">Tendencia</a>
+            <a href="top.html" class="text-2xl text-gray-200 hover:text-accent transition-colors">Top</a>
+            <button id="closeMobileMenu" class="absolute top-6 right-6 text-gray-400 hover:text-white" title="Cerrar menú">
+                <i class="fas fa-times text-3xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobileSearch" class="fixed top-0 inset-x-0 bg-gray-950/95 backdrop-blur-lg z-[55] p-4 mobile-panel pt-20">
+        <div class="relative">
+            <input type="text" placeholder="Buscar anime..." 
+                class="bg-gray-800 text-white w-full rounded-full py-3 pl-12 pr-4 focus:outline-none focus:ring-2 ring-accent transition-all">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+        <button id="closeMobileSearch" class="absolute top-5 right-5 text-gray-400 hover:text-white" title="Cerrar búsqueda">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+    </div>
+
+    <main class="pt-20 lg:pt-24 pb-12">
+        <div class="container mx-auto px-2 sm:px-4 lg:px-6">
+            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6">
+
+                <div class="lg:flex-grow lg:w-full xl:w-2/3">
+                    
+                    <div class="relative mb-4 animate-on-scroll">
+                        <label for="server-select" class="sr-only">Seleccionar Servidor</label>
+                        <div class="flex items-center">
+                            <i class="fas fa-server text-gray-400 mr-2 text-sm"></i>
+                            <select id="server-select" name="server"
+                                    class="bg-gray-800 border border-gray-700 text-gray-200 text-xs sm:text-sm rounded-md focus:ring-accent focus:border-accent block w-full sm:w-auto p-2 pr-7 appearance-none transition-colors">
+                                <option selected>Servidor Principal (HD)</option>
+                                <option value="1">Servidor Alterno (HD)</option>
+                                <option value="2">Servidor Económico (SD)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="aspect-video bg-gray-900 rounded-lg shadow-2xl overflow-hidden mb-4 animate-on-scroll">
+                        <div class="w-full h-full flex items-center justify-center bg-black">
+                            <iframe class="w-full h-full" 
+                                    src="https://www.youtube.com/embed/VIDEO_ID_AQUI?autoplay=0&controls=1&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3" 
+                                    title="Reproductor de Video" frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                    allowfullscreen>
+                            </iframe>
+                            </div>
+                    </div>
+
+                    <div class="bg-gray-900/60 backdrop-blur-sm rounded-lg shadow-md mb-6 p-3 sm:p-4 animate-on-scroll">
+                        <a href="ficha.html" class="text-sm text-accent hover:underline mb-1 inline-block line-clamp-1" title="Ir a la página de la serie">
+                            Nombre de la Serie Muy Larga Que Podría Necesitar Truncamiento
+                        </a>
+                        <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 line-clamp-2" title="Episodio 5: El Secreto Revelado">
+                            Episodio 5: El Secreto Revelado y Otros Detalles Adicionales Que Hacen El Título Aún Más Largo
+                        </h1>
+                        
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <div class="flex items-center gap-2">
+                                <a href="#" title="Capítulo Anterior" class="text-gray-300 hover:text-accent transition-colors p-2 rounded-md flex items-center">
+                                    <i class="fas fa-chevron-left text-xs"></i>
+                                    <span class="ml-1.5 text-sm font-medium">Anterior</span>
+                                </a>
+                                <a href="ficha.html#episodes" title="Lista de Episodios" class="text-gray-300 hover:text-accent transition-colors p-2 rounded-md flex items-center bg-gray-700/50 hover:bg-gray-600/70">
+                                    <i class="fas fa-list-ul text-xs"></i>
+                                    <span class="ml-1.5 text-sm font-medium">Lista</span>
+                                </a>
+                                <a href="#" title="Capítulo Siguiente" class="text-gray-300 hover:text-accent transition-colors p-2 rounded-md flex items-center">
+                                    <span class="mr-1.5 text-sm font-medium">Siguiente</span>
+                                    <i class="fas fa-chevron-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="lg:w-full xl:w-1/3 lg:max-w-sm xl:max-w-md flex-shrink-0 animate-on-scroll">
+                    <div class="bg-gray-900/60 backdrop-blur-sm rounded-lg shadow-md p-3 sm:p-4 max-h-[calc(100vh-10rem)] lg:max-h-[calc(100vh-7rem)] overflow-y-auto scrollbar-hide">
+                        <h2 class="text-lg font-semibold text-white mb-3">Episodios</h2>
+                        <div class="space-y-1.5">
+                            <div class="flex items-center gap-2.5 p-2 rounded-md bg-accent/20 border border-accent cursor-default">
+                                <div class="w-20 sm:w-24 h-11 sm:h-14 bg-gray-700 rounded overflow-hidden flex-shrink-0">
+                                    <img src="https://media.themoviedb.org/t/p/w1000_and_h563_face/31NMrB2XPWqxjh7nWwXHWUcmvUd.jpg" alt="Thumbnail Ep 5" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-grow min-w-0">
+                                    <p class="text-xs text-accent font-semibold">Viendo ahora:</p>
+                                    <h3 class="text-sm font-medium text-white truncate" title="Episodio 5: El Secreto Revelado">Episodio 5: El Secreto Revelado</h3>
+                                </div>
+                                <i class="fas fa-play-circle text-accent text-lg sm:text-xl ml-auto"></i>
+                            </div>
+
+                            <a href="#" class="flex items-center gap-2.5 p-2 rounded-md hover:bg-gray-700/50 transition-colors group" title="Ver Episodio 6: La Traición Inesperada">
+                                <div class="w-20 sm:w-24 h-11 sm:h-14 bg-gray-700 rounded overflow-hidden flex-shrink-0">
+                                    <img src="https://media.themoviedb.org/t/p/w1000_and_h563_face/31NMrB2XPWqxjh7nWwXHWUcmvUd.jpg" alt="Thumbnail Ep 6" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                                </div>
+                                <div class="flex-grow min-w-0">
+                                    <p class="text-xs text-gray-400 group-hover:text-accent">Siguiente:</p>
+                                    <h3 class="text-sm font-medium text-gray-200 group-hover:text-white truncate">Episodio 6: La Traición Inesperada</h3>
+                                </div>
+                                <i class="far fa-play-circle text-gray-500 group-hover:text-accent text-lg sm:text-xl ml-auto"></i>
+                            </a>
+                            
+                            <script>
+                                for(let i = 7; i <= 12; i++) { // Reducido para ejemplo
+                                    document.write(`
+                                    <a href="#" class="flex items-center gap-2.5 p-2 rounded-md hover:bg-gray-700/50 transition-colors group" title="Ver Episodio ${i}: Nuevo Desafío">
+                                        <div class="w-20 sm:w-24 h-11 sm:h-14 bg-gray-700 rounded overflow-hidden flex-shrink-0">
+                                            <img src="https://media.themoviedb.org/t/p/w1000_and_h563_face/31NMrB2XPWqxjh7nWwXHWUcmvUd.jpg" alt="Thumbnail Ep ${i}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                                        </div>
+                                        <div class="flex-grow min-w-0">
+                                            <h3 class="text-sm font-medium text-gray-300 group-hover:text-white truncate">Episodio ${i}: Nuevo Desafío en el Horizonte</h3>
+                                        </div>
+                                        <span class="text-xs text-gray-500 ml-auto pr-1">23:50</span>
+                                    </a>
+                                    `);
+                                }
+                            </script>
+                             <div class="pt-2 mt-2 border-t border-gray-700/50">
+                                <a href="ficha.html#episodes" class="block w-full text-center text-accent text-sm hover:underline py-1">Ver todos los episodios</a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+            <section id="related-content" class="pt-10 lg:pt-16 animate-on-scroll">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-100">También te podría gustar</h2>
+                    <a href="catalogo.html" class="text-sm text-accent hover:underline">Ver más</a>
+                </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
+                    <script>
+                      const relatedPlayerSeries = [
+                        { id: 1, title: "Otra Serie Increíble", img: "https://latanime.org/thumbs/imagen/anne-shirley-latino-1745703268.jpg?v=1.5", episodes: "24 episodios", rating: "9.2", genre: "Aventura", type: "NUEVO"},
+                        { id: 2, title: "Aventura Épica Z", img: "https://latanime.org/thumbs/imagen/mono-latino-1746315759.jpg?v=1.5", episodes: "150 episodios", rating: "8.8", genre: "Acción", type: "EN EMISIÓN"},
+                        { id: 3, title: "El Misterio de la Academia", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/kxpPNN2pg0w13mN3iV54y1k9DPA.jpg", episodes: "12 episodios", rating: "9.0", genre: "Misterio", type: "FINALIZADO"},
+                        { id: 4, title: "Comedia Romántica Escolar", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/mfNdYoYHf2skxL1u9hSPXAR2LJy.jpg", episodes: "13 episodios", rating: "8.5", genre: "Romance", type: "EN EMISIÓN"},
+                        { id: 5, title: "Isekai de Poderes Rotos", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/nTw1Qn37hMCE9QEw9N2d0Sn85q3.jpg", episodes: "25 episodios", rating: "9.1", genre: "Isekai", type: "NUEVO"},
+                        { id: 6, title: "Slice of Life Tranquilo", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/3C1rLq682ycQ0T4rpK9c6YXLQjY.jpg", episodes: "12 episodios", rating: "8.7", genre: "Slice of Life", type: "FINALIZADO"}
+                      ];
+                      relatedPlayerSeries.forEach(serie => {
+                        let typeBg = 'bg-blue-600'; // Default
+                        if (serie.type === 'NUEVO') typeBg = 'bg-red-600';
+                        if (serie.type === 'EN EMISIÓN') typeBg = 'bg-green-600';
+
+                        document.write(`
+                        <div class="series-card group animate-on-scroll">
+                            <a href="ficha.html?id=${serie.id}" class="block">
+                                <div class="relative aspect-[3/4.5] rounded-lg overflow-hidden bg-gray-800 shadow-lg border border-gray-700/50">
+                                    <img src="${serie.img}" alt="${serie.title}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                    <div class="series-info absolute bottom-0 left-0 right-0 p-2 sm:p-2.5 text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                                        <h3 class="font-bold text-xs sm:text-sm mb-0.5 line-clamp-2">${serie.title}</h3>
+                                        <p class="text-[0.65rem] sm:text-xs text-gray-300 mb-1">${serie.episodes}</p>
+                                        <div class="flex items-center gap-1.5 text-[0.65rem] sm:text-xs">
+                                            <span class="bg-accent text-black px-1.5 py-0.5 rounded font-bold">${serie.rating}</span>
+                                            <span class="text-gray-400">${serie.genre}</span>
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-1.5 left-1.5 ${typeBg} text-white text-[0.6rem] sm:text-xs font-bold px-1.5 py-0.5 rounded">
+                                        ${serie.type}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        `);
+                      });
+                    </script>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-gray-950 border-t border-gray-800/50 mt-16 lg:mt-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-12 py-8 text-center text-gray-400 text-xs">
+            <p>© ${new Date().getFullYear()} AnimeStream. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="funciones.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeStream - Tendencias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilo adicional para el glow del acento en hover, si se desea algo más pronunciado */
+        /* .card-glow:hover {
+            box-shadow: 0 0 15px 5px var(--accent-color-translucent, rgba(243, 198, 105, 0.3)), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        } */
+        /* En style.css, podrías definir --accent-color-translucent si usas esto */
+    </style>
+</head>
+<body class="antialiased"> 
+   <header id="mainHeader" class="fixed top-0 w-full z-50 header-scrolled">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="flex items-center justify-between h-16 lg:h-20">
+                <div class="flex items-center space-x-4 lg:space-x-6">
+                    <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
+                        <div class="w-9 h-9 lg:w-10 lg:h-10 bg-accent rounded-lg flex items-center justify-center shadow-md">
+                            <i class="fas fa-play text-black text-base lg:text-lg"></i>
+                        </div>
+                        <span class="text-lg lg:text-2xl font-bold text-white">AnimeStream</span>
+                    </a>
+                    <nav class="hidden lg:flex items-center space-x-4 xl:space-x-5">
+                        <a href="index.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Inicio</a>
+                        <a href="catalogo.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Catálogo</a>
+                        <a href="tendencia.html" class="text-accent transition-colors text-sm font-medium">Tendencia</a> <a href="top.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Top</a>
+                    </nav>
+                </div>
+
+                <div class="flex items-center space-x-2 lg:space-x-3 flex-shrink-0">
+                    <div class="hidden lg:block relative">
+                        <button id="desktopSearchBtn" class="text-gray-300 hover:text-accent transition-colors p-2 group" title="Buscar">
+                            <i class="fas fa-search text-lg"></i>
+                        </button>
+                        <div id="desktopSearchInputContainer" class="hidden absolute right-0 top-full mt-2 w-72">
+                             <input type="text" placeholder="Buscar anime..." class="bg-gray-800 text-white w-full rounded-full py-2.5 px-5 focus:outline-none focus:ring-2 ring-accent transition-all text-sm shadow-lg">
+                        </div>
+                    </div>
+                    <button title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                        <i class="fas fa-user text-base lg:text-lg"></i>
+                    </button>
+                    <button id="mobileSearchBtn" title="Buscar" class="lg:hidden w-9 h-9 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                        <i class="fas fa-search text-base"></i>
+                    </button>
+                    <button class="lg:hidden text-gray-300 hover:text-accent transition-colors p-1" id="mobileMenuBtn" title="Menú">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-950/95 backdrop-blur-lg z-[60] mobile-panel">
+        <div class="flex flex-col items-center justify-center h-full space-y-6">
+            <a href="index.html" class="text-2xl text-gray-200 hover:text-accent transition-colors">Inicio</a>
+            <a href="catalogo.html" class="text-2xl text-gray-200 hover:text-accent transition-colors">Catálogo</a>
+            <a href="tendencia.html" class="text-2xl text-accent transition-colors">Tendencia</a> <a href="top.html" class="text-2xl text-gray-200 hover:text-accent transition-colors">Top</a>
+            <button id="closeMobileMenu" class="absolute top-6 right-6 text-gray-400 hover:text-white" title="Cerrar menú">
+                <i class="fas fa-times text-3xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobileSearch" class="fixed top-0 inset-x-0 bg-gray-950/95 backdrop-blur-lg z-[55] p-4 mobile-panel pt-20">
+        <div class="relative">
+            <input type="text" placeholder="Buscar anime..." 
+                class="bg-gray-800 text-white w-full rounded-full py-3 pl-12 pr-4 focus:outline-none focus:ring-2 ring-accent transition-all">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+        </div>
+        <button id="closeMobileSearch" class="absolute top-5 right-5 text-gray-400 hover:text-white" title="Cerrar búsqueda">
+            <i class="fas fa-times text-2xl"></i>
+        </button>
+    </div>
+
+    <main class="pt-20 lg:pt-24 pb-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="mb-10 md:mb-12 animate-on-scroll text-center">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+                    <span class="text-accent">Tendencias</span> del Momento
+                </h1>
+                <p class="mt-3 text-base sm:text-lg text-gray-400 max-w-xl mx-auto">
+                    Descubre los animes más populares y comentados de la semana, actualizados para ti.
+                </p>
+            </div>
+
+            <div id="trendingImageGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 md:gap-6">
+                
+                <script>
+                    const animesEnTendencia = [
+                        { rank: 1, id: 52991, title: "Sousou no Frieren", img: "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg" },
+                        { rank: 2, id: 5114, title: "Fullmetal Alchemist: Brotherhood", img: "https://cdn.myanimelist.net/images/anime/1208/94745l.jpg" },
+                        { rank: 3, id: 9253, title: "Steins;Gate", img: "https://cdn.myanimelist.net/images/anime/1Steins-Gate/1Steins-Gatel.jpg" },
+                        { rank: 4, id: 38524, title: "Shingeki no Kyojin: The Final Season", shortTitle: "Attack on Titan: Final Season", img: "https://cdn.myanimelist.net/images/anime/1988/132776l.jpg" },
+                        { rank: 5, id: 11061, title: "Hunter x Hunter (2011)", img: "https://cdn.myanimelist.net/images/anime/1337/99013l.jpg" },
+                        { rank: 6, id: 40834, title: "Jujutsu Kaisen", img: "https://cdn.myanimelist.net/images/anime/1334/140131l.jpg" },
+                        { rank: 7, id: 30276, title: "Shingeki no Kyojin Season 3 Part 2", shortTitle: "Attack on Titan S3 P2", img: "https://cdn.myanimelist.net/images/anime/1517/100633l.jpg" },
+                        { rank: 8, id: 28977, title: "Gintama°", img: "https://cdn.myanimelist.net/images/anime/3/72079l.jpg" },
+                        { rank: 9, id: 1, title: "Cowboy Bebop", img: "https://cdn.myanimelist.net/images/anime/4/19644l.jpg" },
+                        { rank: 10, id: 42938, title: "Fruits Basket: The Final", img: "https://cdn.myanimelist.net/images/anime/1085/114792l.jpg" },
+                        { rank: 11, id: 44074, title: "Chainsaw Man", img: "https://cdn.myanimelist.net/images/anime/1171/139338l.jpg" },
+                        { rank: 12, id: 51535, title: "[Oshi no Ko]", img: "https://cdn.myanimelist.net/images/anime/1808/140906l.jpg" }
+                    ];
+
+                    const gridContainer = document.getElementById('trendingImageGrid');
+                    if (gridContainer) {
+                        animesEnTendencia.forEach(anime => {
+                            const card = `
+                                <div class="animate-on-scroll group relative rounded-xl overflow-hidden shadow-2xl border border-transparent hover:border-accent/50 transition-all duration-300 ease-in-out transform hover:-translate-y-1 card-glow">
+                                    <a href="ficha.html?id=${anime.id}" class="block">
+                                        <div class="absolute top-3 left-3 z-20 bg-accent text-black text-sm font-bold w-9 h-9 flex items-center justify-center rounded-full shadow-lg group-hover:scale-110 group-hover:rotate-[-10deg] transition-transform duration-300 ease-out">
+                                            #${anime.rank}
+                                        </div>
+
+                                        <div class="relative aspect-[3/4.5] bg-gray-900">
+                                            <img src="${anime.img}" alt="${anime.title}" class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x450/1a1a1a/FFFFFF/?text=No+Disponible';this.classList.add('img-error');">
+                                            <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/90 via-black/60 to-transparent pointer-events-none"></div>
+                                        </div>
+
+                                        <div class="absolute inset-x-0 bottom-0 p-3 md:p-4 z-10">
+                                            <h3 class="text-sm md:text-base font-semibold text-white truncate group-hover:text-accent transition-colors duration-300" title="${anime.title}">
+                                                ${anime.shortTitle || anime.title}
+                                            </h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            `;
+                            gridContainer.innerHTML += card;
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-950 border-t border-gray-800/50 mt-16 lg:mt-24">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-12 py-8 text-center text-gray-400 text-xs">
+            <p>© ${new Date().getFullYear()} AnimeStream. Todos los derechos reservados.</p>
+            <p class="mt-1">Diseño inspirado para fines demostrativos.</p>
+        </div>
+    </footer>
+
+    <script src="funciones.js"></script>
+    <style>
+        .img-error { object-fit: contain; background-color: #111827; }
+    </style>
+</body>
+</html>

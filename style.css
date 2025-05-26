@@ -211,3 +211,74 @@ body {
     /* Tailwind maneja el focus:ring-accent y focus:border-accent */
     background-color: rgba(31, 41, 55, 0.9); /* Un poco más opaco al enfocar */
 }
+
+/* En tu style.css */ 
+.hero-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 0.5rem; /* o la que uses */
+}
+
+.hero-slider.slider-item-ratio-custom .slider-container li {
+    aspect-ratio: unset;
+    height: 400px; /* Altura fija, crítica para el layout */
+    position: relative; /* Necesario para .slide-content absoluto */
+    overflow: hidden; /* Para evitar que el contenido desborde si es muy grande */
+}
+
+.hero-slider .slider-container li > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute; /* Para que esté detrás del contenido */
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.hero-slider .slide-content {
+    position: relative; /* Cambiado de absolute a relative para estar en el flujo normal sobre la imagen absoluta */
+    z-index: 2; /* Encima de la imagen */
+    width: 100%;
+    height: 100%; /* Ocupar toda la altura del li */
+    display: flex;
+    flex-direction: column; /* Para alinear el content-wrapper */
+    justify-content: center; /* Centrar verticalmente el content-wrapper */
+    align-items: flex-start; /* Alinear a la izquierda por defecto, o center si prefieres */
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+    padding: clamp(20px, 5vw, 48px);
+    color: white; /* Asegurar color de texto base */
+}
+
+.hero-slider .content-wrapper {
+    width: 100%;
+    max-width: clamp(300px, 50vw, 700px); /* Controla el ancho del texto */
+    /* Si align-items en slide-content es center, esto centraría el bloque de texto */
+    /* margin-left: auto; margin-right: auto; */
+}
+
+.hero-slider .content-wrapper h1 {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    line-height: 1.15;
+    margin-bottom: clamp(10px, 1.5vw, 16px);
+    font-weight: 800;
+}
+
+.hero-slider .content-wrapper p {
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+    margin-bottom: clamp(16px, 2.5vw, 24px);
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita el número de líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+    color: #e5e7eb; /* Un gris claro para el párrafo */
+}
+
+.hero-slider .slide-buttons {
+    display: flex;
+    gap: clamp(8px, 1.5vw, 10px);
+    flex-wrap: wrap;
+}
