@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeStream - Catálogo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Swiffy Slider CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="funciones.js"></script>
+</head>
+<body class="bg-black text-white">
+    <header class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md z-50 border-b border-gray-800">
+        <div class="container mx-auto" style="padding-left: 49px; padding-right: 49px;">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+                            <i class="fas fa-play text-black"></i>
+                        </div>
+                        <span class="text-xl font-bold">AnimeStream</span>
+                    </a>
+                    <nav class="hidden lg:flex items-center space-x-6">
+                        <a href="#" class="hover:text-accent transition-colors">Inicio</a>
+                        <a href="#" class="text-accent font-semibold">Catálogo</a>
+                        <a href="#" class="hover:text-accent transition-colors">Tendencia</a>
+                        <a href="#" class="hover:text-accent transition-colors">Top</a>
+                    </nav>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden lg:block">
+                        <div class="relative">
+                            <input type="text" placeholder="Buscar anime..." 
+                                class="bg-gray-800 rounded-full pl-10 pr-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <button class="w-10 h-10 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button id="mobileSearchBtn" class="lg:hidden w-10 h-10 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="lg:hidden" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-[60] mobile-panel">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Inicio</a>
+            <a href="#" class="text-2xl text-accent font-semibold">Catálogo</a>
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Tendencia</a>
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Top</a>
+            <button id="closeMobileMenu" class="mt-8 text-gray-400">
+                <i class="fas fa-times text-3xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Search -->
+    <div id="mobileSearch" class="fixed top-16 inset-x-0 bg-gray-900/95 backdrop-blur-md z-[55] p-4 mobile-panel">
+        <div class="relative">
+            <input type="text" placeholder="Buscar anime..." 
+                class="bg-gray-800 text-white w-full rounded-full py-3 pl-12 pr-12 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button id="closeMobileSearch" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+        <div class="mt-4 text-sm text-gray-400">
+            <p class="mb-2">Búsquedas populares:</p>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-800 px-3 py-1 rounded-full">One Piece</span>
+                <span class="bg-gray-800 px-3 py-1 rounded-full">Demon Slayer</span>
+                <span class="bg-gray-800 px-3 py-1 rounded-full">Jujutsu Kaisen</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto pt-24 pb-12" style="padding-left: 49px; padding-right: 49px;">
+
+
+        <!-- Filtros -->
+        <section class="mb-8">
+            <!-- Filtro principal -->
+            <div class="flex flex-col lg:flex-row gap-4 mb-6">
+                <div class="flex-1">
+                    <div class="relative">
+                        <input type="text" placeholder="Buscar serie..." 
+                            class="w-full bg-gray-900 rounded-lg pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <select class="bg-gray-900 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
+                        <option value="">Ordenar por</option>
+                        <option value="recent">Más recientes</option>
+                        <option value="popular">Más populares</option>
+                        <option value="rating">Mejor valorados</option>
+                        <option value="alphabetical">Alfabético</option>
+                    </select>
+                    <button class="bg-gray-900 rounded-lg px-4 py-3 hover:bg-gray-800 transition-all lg:hidden">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtros por categoría -->
+            <div class="space-y-4">
+                <!-- Géneros -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 mb-3">GÉNEROS</h3>
+                    <div class="flex gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                       <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium active">
+        Todos
+    </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium">
+                            Acción
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium">
+                            Romance
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium">
+                            Comedia
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium">
+                            Drama
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium">
+                            Fantasía
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium">
+                            Sci-Fi
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium">
+                            Seinen
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg whitespace-nowrap text-sm font-medium">
+                            Shounen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Estado -->
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 mb-3">ESTADO</h3>
+                    <div class="flex gap-2">
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg text-sm font-medium active">
+                            Todos
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg text-sm font-medium">
+                            En emisión
+                        </button>
+                        <button class="filter-button bg-gray-900 px-4 py-2 rounded-lg text-sm font-medium">
+                            Finalizado
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultados -->
+        <section>
+            <div class="flex items-center justify-between mb-6">
+                <p class="text-gray-400">Mostrando <span class="text-white font-semibold">120</span> series</p>
+                <div class="flex items-center gap-2">
+                    <button class="w-10 h-10 bg-gray-900 rounded-lg hover:bg-gray-800 transition-all">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="w-10 h-10 bg-gray-800 rounded-lg hover:bg-gray-700 transition-all">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid de series -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
+                <!-- Card 1 -->
+                <div class="catalog-card group">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/gFs2oxAjyzMu7Bx9mUJKeW3K4ym.jpg" 
+                            alt="Frieren" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="bg-accent text-black text-xs font-bold px-2 py-1 rounded">9.5</span>
+                                    <span class="text-xs text-gray-300">Fantasía • Aventura</span>
+                                </div>
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded-lg transition-colors">
+                                    <i class="fas fa-play mr-2"></i>Ver ahora
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+                            EN EMISIÓN
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm mb-1 line-clamp-1">Frieren: Más allá del final del viaje</h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>2023</span>
+                            <span>28 episodios</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="catalog-card group">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/gFs2oxAjyzMu7Bx9mUJKeW3K4ym.jpg" 
+                            alt="One Piece" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="bg-accent text-black text-xs font-bold px-2 py-1 rounded">9.0</span>
+                                    <span class="text-xs text-gray-300">Aventura • Shounen</span>
+                                </div>
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded-lg transition-colors">
+                                    <i class="fas fa-play mr-2"></i>Ver ahora
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+                            EN EMISIÓN
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm mb-1 line-clamp-1">One Piece</h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>1999</span>
+                            <span>1089+ episodios</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="catalog-card group">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/lwLFZFB3S2PeOLtWksaWerF6B4D.jpg" 
+                            alt="Jujutsu Kaisen" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="bg-accent text-black text-xs font-bold px-2 py-1 rounded">8.8</span>
+                                    <span class="text-xs text-gray-300">Acción • Sobrenatural</span>
+                                </div>
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded-lg transition-colors">
+                                    <i class="fas fa-play mr-2"></i>Ver ahora
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
+                            FINALIZADO
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm mb-1 line-clamp-1">Jujutsu Kaisen</h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>2020</span>
+                            <span>24 episodios</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="catalog-card group">
+                    <div class="aspect-[3/4] relative overflow-hidden">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/ra8CKkCHjSok8L9meEP4WuOukNK.jpg" 
+                            alt="Demon Slayer" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="card-overlay">
+                            <div class="card-info">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="bg-accent text-black text-xs font-bold px-2 py-1 rounded">8.7</span>
+                                    <span class="text-xs text-gray-300">Acción • Histórico</span>
+                                </div>
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded-lg transition-colors">
+                                    <i class="fas fa-play mr-2"></i>Ver ahora
+                                </button>
+                            </div>
+                        </div>
+                        <div class="absolute top-2 left-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">
+                            FINALIZADO
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-bold text-sm mb-1 line-clamp-1">Demon Slayer: Kimetsu no Yaiba</h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>2019</span>
+                            <span>26 episodios</span>
+                        </div>
+                    </div>

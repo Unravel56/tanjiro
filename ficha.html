@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeStream - Frieren: Más allá del final del viaje</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Swiffy Slider CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="funciones.js"></script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 50%, #09090b 100%);
+        }
+        
+        .episode-card {
+            transition: all 0.3s ease;
+        }
+        
+        .episode-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .episode-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .episode-card:hover .episode-overlay {
+            opacity: 1;
+        }
+        
+        .play-icon {
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .episode-card:hover .play-icon {
+            transform: scale(1);
+        }
+        
+        .info-badge {
+            background-color: #27272a;
+            color: #a1a1aa;
+        }
+        
+        .genre-tag {
+            background-color: #27272a;
+            color: #d4d4d8;
+            transition: all 0.3s ease;
+        }
+        
+        .genre-tag:hover {
+            background-color: #f3c669;
+            color: #000;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+    <header class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md z-50 border-b border-gray-800">
+        <div class="container mx-auto" style="padding-left: 49px; padding-right: 49px;">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+                            <i class="fas fa-play text-black"></i>
+                        </div>
+                        <span class="text-xl font-bold">AnimeStream</span>
+                    </a>
+                    <nav class="hidden lg:flex items-center space-x-6">
+                        <a href="#" class="hover:text-accent transition-colors">Inicio</a>
+                        <a href="#" class="text-accent font-semibold">Catálogo</a>
+                        <a href="#" class="hover:text-accent transition-colors">Tendencia</a>
+                        <a href="#" class="hover:text-accent transition-colors">Top</a>
+                    </nav>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden lg:block">
+                        <div class="relative">
+                            <input type="text" placeholder="Buscar anime..." 
+                                class="bg-gray-800 rounded-full pl-10 pr-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
+                            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                    <button class="w-10 h-10 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <button id="mobileSearchBtn" class="lg:hidden w-10 h-10 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="lg:hidden" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-[60] mobile-panel">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Inicio</a>
+            <a href="#" class="text-2xl text-accent font-semibold">Catálogo</a>
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Tendencia</a>
+            <a href="#" class="text-2xl hover:text-accent transition-colors">Top</a>
+            <button id="closeMobileMenu" class="mt-8 text-gray-400">
+                <i class="fas fa-times text-3xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Search -->
+    <div id="mobileSearch" class="fixed top-16 inset-x-0 bg-gray-900/95 backdrop-blur-md z-[55] p-4 mobile-panel">
+        <div class="relative">
+            <input type="text" placeholder="Buscar anime..." 
+                class="bg-gray-800 text-white w-full rounded-full py-3 pl-12 pr-12 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <button id="closeMobileSearch" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+        <div class="mt-4 text-sm text-gray-400">
+            <p class="mb-2">Búsquedas populares:</p>
+            <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-800 px-3 py-1 rounded-full">One Piece</span>
+                <span class="bg-gray-800 px-3 py-1 rounded-full">Demon Slayer</span>
+                <span class="bg-gray-800 px-3 py-1 rounded-full">Jujutsu Kaisen</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-[60vh] lg:h-[70vh] overflow-hidden">
+        <img src="https://media.themoviedb.org/t/p/original/8mjYwWT50GkRrrRdyHzJorfEfcl.jpg" 
+            alt="Frieren Banner" class="w-full h-full object-cover">
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-4 lg:p-8">
+            <div class="container mx-auto" style="padding-left: 49px; padding-right: 49px;">
+                <div class="flex flex-col lg:flex-row gap-6 items-end">
+                    <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/gFs2oxAjyzMu7Bx9mUJKeW3K4ym.jpg" 
+                        alt="Frieren Poster" class="w-40 lg:w-48 rounded-lg shadow-2xl">
+                    <div class="flex-1">
+                        <h1 class="text-3xl lg:text-5xl font-bold mb-2">Frieren: Más allá del final del viaje</h1>
+                        <p class="text-lg text-gray-300 mb-4">Sousou no Frieren • 葬送のフリーレン</p>
+                        <div class="flex flex-wrap gap-3 items-center">
+                            <button class="bg-accent hover:bg-yellow-400 text-black font-bold px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
+                                <i class="fas fa-play"></i>
+                                Ver ahora
+                            </button>
+                            <button class="bg-gray-800 hover:bg-gray-700 text-white font-bold px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
+                                <i class="far fa-bookmark"></i>
+                                Añadir a mi lista
+                            </button>
+                            <div class="flex items-center gap-2">
+                                <span class="bg-green-600 text-white text-sm font-bold px-3 py-1 rounded">EN EMISIÓN</span>
+                                <span class="bg-accent text-black text-sm font-bold px-3 py-1 rounded">★ 9.5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-8" style="padding-left: 49px; padding-right: 49px;">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column - Main Info -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Synopsis -->
+                <section>
+                    <h2 class="text-2xl font-bold mb-4">Sinopsis</h2>
+                    <p class="text-gray-300 leading-relaxed">
+                        Después de una búsqueda de diez años junto al héroe Himmel y su grupo, la maga elfa Frieren derrota al Rey Demonio 
+                        y trae la paz al reino. Como una elfa, Frieren tiene una vida útil de más de mil años. Ella promete regresar a sus 
+                        amigos algún día, antes de partir en su propio viaje. Cincuenta años después, Frieren regresa para visitar a sus 
+                        antiguos compañeros, solo para encontrarlos envejecidos mientras ella permanece sin cambios. Después de la muerte 
+                        de Himmel, Frieren lamenta no haber pasado más tiempo conociéndolo. Determinada a entender mejor a los humanos, 
+                        emprende un nuevo viaje con Fern, la joven aprendiz del sacerdote Heiter.
+                    </p>
+                </section>
+
+                <!-- Episodes Section -->
+                <section>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold">Episodios</h2>
+                        <div class="flex gap-2">
+                            <select class="bg-gray-800 rounded-lg px-4 py-2 text-sm">
+                                <option>Temporada 1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Episodes Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <!-- Episode 1 -->
+                        <a href="#" class="episode-card bg-gray-900 rounded-lg overflow-hidden group">
+                            <div class="relative aspect-cap">
+                                <img src="https://yohentai.net/thumbs/portada/oni-tensei-1733502242.webp?v=1.5" 
+                                    alt="Episode 1" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 episode-overlay flex items-center justify-center">
+                                    <div class="play-icon w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-play text-black ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    23:40
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="font-semibold text-sm mb-1 line-clamp-2">El fin de la aventura</h3>
+                                <p class="text-xs text-gray-400">Episodio 1</p>
+                            </div>
+                        </a>
+
+                        <!-- Episode 2 -->
+                        <a href="#" class="episode-card bg-gray-900 rounded-lg overflow-hidden group">
+                            <div class="relative aspect-cap">
+                                <img src="https://yohentai.net/thumbs/portada/oni-tensei-1733502242.webp?v=1.5" 
+                                    alt="Episode 2" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 episode-overlay flex items-center justify-center">
+                                    <div class="play-icon w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-play text-black ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    23:40
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="font-semibold text-sm mb-1 line-clamp-2">No tenía por qué ser una gran hazaña</h3>
+                                <p class="text-xs text-gray-400">Episodio 2</p>
+                            </div>
+                        </a>
+
+                        <!-- Episode 3 -->
+                        <a href="#" class="episode-card bg-gray-900 rounded-lg overflow-hidden group">
+                            <div class="relative aspect-cap">
+                                <img src="https://yohentai.net/thumbs/portada/oni-tensei-1733502242.webp?v=1.5" 
+                                    alt="Episode 3" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 episode-overlay flex items-center justify-center">
+                                    <div class="play-icon w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-play text-black ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    23:40
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="font-semibold text-sm mb-1 line-clamp-2">Matar para vivir</h3>
+                                <p class="text-xs text-gray-400">Episodio 3</p>
+                            </div>
+                        </a>
+
+                        <!-- Episode 4 -->
+                        <a href="#" class="episode-card bg-gray-900 rounded-lg overflow-hidden group">
+                            <div class="relative aspect-cap">
+                                <img src="https://yohentai.net/thumbs/portada/oni-tensei-1733502242.webp?v=1.5" 
+                                    alt="Episode 4" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 episode-overlay flex items-center justify-center">
+                                    <div class="play-icon w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-play text-black ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    23:40
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="font-semibold text-sm mb-1 line-clamp-2">La tierra donde yacen las almas</h3>
+                                <p class="text-xs text-gray-400">Episodio 4</p>
+                            </div>
+                        </a>
+
+                        <!-- Episode 5 -->
+                        <a href="#" class="episode-card bg-gray-900 rounded-lg overflow-hidden group">
+                            <div class="relative aspect-cap">
+                                <img src="https://yohentai.net/thumbs/portada/oni-tensei-1733502242.webp?v=1.5" 
+                                    alt="Episode 5" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 episode-overlay flex items-center justify-center">
+                                    <div class="play-icon w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-play text-black ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    23:40
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="font-semibold text-sm mb-1 line-clamp-2">Fantasmas del pasado</h3>
+                                <p class="text-xs text-gray-400">Episodio 5</p>
+                            </div>
+                        </a>
+
+                        <!-- Episode 6 -->
+                        <a href="#" class="episode-card bg-gray-900 rounded-lg overflow-hidden group">
+                            <div class="relative aspect-cap">
+                                <img src="https://yohentai.net/thumbs/portada/oni-tensei-1733502242.webp?v=1.5" 
+                                    alt="Episode 6" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 episode-overlay flex items-center justify-center">
+                                    <div class="play-icon w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-play text-black ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    23:40
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="font-semibold text-sm mb-1 line-clamp-2">La era de los humanos</h3>
+                                <p class="text-xs text-gray-400">Episodio 6</p>
+                            </div>
+                        </a>
+
+                        <!-- Episode 7 -->
+                        <a href="#" class="episode-card bg-gray-900 rounded-lg overflow-hidden group">
+                            <div class="relative aspect-cap">
+                                <img src="https://yohentai.net/thumbs/portada/oni-tensei-1733502242.webp?v=1.5" 
+                                    alt="Episode 7" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 episode-overlay flex items-center justify-center">
+                                    <div class="play-icon w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-play text-black ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    23:40
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="font-semibold text-sm mb-1 line-clamp-2">Como un cuento de hadas</h3>
+                                <p class="text-xs text-gray-400">Episodio 7</p>
+                            </div>
+                        </a>
+
+                        <!-- Episode 8 -->
+                        <a href="#" class="episode-card bg-gray-900 rounded-lg overflow-hidden group">
+                            <div class="relative aspect-cap">
+                                <img src="https://yohentai.net/thumbs/portada/oni-tensei-1733502242.webp?v=1.5" 
+                                    alt="Episode 8" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 episode-overlay flex items-center justify-center">
+                                    <div class="play-icon w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-play text-black ml-1"></i>
+                                    </div>
+                                </div>
+                                <div class="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                                    23:40
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h3 class="font-semibold text-sm mb-1 line-clamp-2">Frieren la asesina</h3>
+                                <p class="text-xs text-gray-400">Episodio 8</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Load More Button -->
+                    <div class="mt-6 text-center">
+                        <button class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors">
+                            Cargar más episodios
+                        </button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column - Sidebar Info -->
+            <div class="space-y-6">
+                <!-- Info Card -->
+                <div class="bg-gray-900 rounded-lg p-6">
+                    <h3 class="text-lg font-bold mb-4">Información</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-sm color_ficha_titulo">Título alternativo</p>
+                            <p class="text-sm">Sousou no Frieren</p>
+                        </div>
+                        <div>
+                            <p class="text-sm color_ficha_titulo">Estado</p>
+                            <p class="text-sm">En emisión</p>
+                        </div>
+                        <div>
+                            <p class="text-sm color_ficha_titulo">Fecha de estreno</p>
+                            <p class="text-sm">29 de septiembre, 2023</p>
+                        </div>
+                        <div>
+                            <p class="text-sm color_ficha_titulo">Temporadas</p>
+                            <p class="text-sm">1 temporada</p>
+                        </div>
+                        <div>
+                            <p class="text-sm color_ficha_titulo">Episodios</p>
+                            <p class="text-sm">28 episodios</p>
+                        </div>
+                        <div>
+                            <p class="text-sm color_ficha_titulo">Duración</p>
+                            <p class="text-sm">24 minutos</p>
+                        </div>
+                        <div>
+                            <p class="text-sm color_ficha_titulo">Estudio</p>
+                            <p class="text-sm">Madhouse</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Genres -->
+                <div class="bg-gray-900 rounded-lg p-6">
+                    <h3 class="text-lg font-bold mb-4">Géneros</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="genre-tag px-3 py-1 rounded-lg text-sm">Aventura</a>
+                        <a href="#" class="genre-tag px-3 py-1 rounded-lg text-sm">Drama</a>
+                        <a href="#" class="genre-tag px-3 py-1 rounded-lg text-sm">Fantasía</a>
+                        <a href="#" class="genre-tag px-3 py-1 rounded-lg text-sm">Shounen</a>
+                    </div>
+                </div>
+
+                <!-- Rating -->
+                <div class="bg-gray-900 rounded-lg p-6">
+                    <h3 class="text-lg font-bold mb-4">Calificación</h3>
+                    <div class="flex items-center gap-4">
+                        <div class="text-center">
+                            <p class="text-4xl font-bold text-accent">9.5</p>
+                            <p class="text-sm text-gray-400">Puntuación</p>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1 mb-2">
+                                <i class="fas fa-star text-accent"></i>
+                                <i class="fas fa-star text-accent"></i>
+                                <i class="fas fa-star text-accent"></i>
+                                <i class="fas fa-star text-accent"></i>
+                                <i class="fas fa-star-half-alt text-accent"></i>
+                            </div>
+                            <p class="text-sm text-gray-400">Basado en 12,458 votos</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Share -->
+                <div class="bg-gray-900 rounded-lg p-6">
+                    <h3 class="text-lg font-bold mb-4">Compartir</h3>
+                    <div class="flex gap-3">
+                        <button class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors">
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                        <button class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Series -->
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold mb-6">Series relacionadas</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <!-- Related Card 1 -->
+                <div class="group">
+                    <div class="aspect-[3/4] relative overflow-hidden rounded-lg">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/lwLFZFB3S2PeOLtWksaWerF6B4D.jpg" 
+                            alt="Related Anime" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div class="w-full">
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded transition-colors text-sm">
+                                    <i class="fas fa-play mr-1"></i>Ver
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-sm mt-2 line-clamp-2">Mushoku Tensei</h3>
+                </div>
+
+                <!-- Related Card 2 -->
+                <div class="group">
+                    <div class="aspect-[3/4] relative overflow-hidden rounded-lg">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/ra8CKkCHjSok8L9meEP4WuOukNK.jpg" 
+                            alt="Related Anime" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div class="w-full">
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded transition-colors text-sm">
+                                    <i class="fas fa-play mr-1"></i>Ver
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-sm mt-2 line-clamp-2">Violet Evergarden</h3>
+                </div>
+
+                <!-- Related Card 3 -->
+                <div class="group">
+                    <div class="aspect-[3/4] relative overflow-hidden rounded-lg">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/5ik3QLYr7dFTUV7qcHzQJqVnmAV.jpg" 
+                            alt="Related Anime" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div class="w-full">
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded transition-colors text-sm">
+                                    <i class="fas fa-play mr-1"></i>Ver
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-sm mt-2 line-clamp-2">Kino no Tabi</h3>
+                </div>
+
+                <!-- Related Card 4 -->
+                <div class="group">
+                    <div class="aspect-[3/4] relative overflow-hidden rounded-lg">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/iZKn6Bk5td5A6aBB2jSK9fNzL8D.jpg" 
+                            alt="Related Anime" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div class="w-full">
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded transition-colors text-sm">
+                                    <i class="fas fa-play mr-1"></i>Ver
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-sm mt-2 line-clamp-2">Spice and Wolf</h3>
+                </div>
+
+                <!-- Related Card 5 -->
+                <div class="group">
+                    <div class="aspect-[3/4] relative overflow-hidden rounded-lg">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/u0b5PfcA3dIJuECWEUopOYnFpLG.jpg" 
+                            alt="Related Anime" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div class="w-full">
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2 rounded transition-colors text-sm">
+                                    <i class="fas fa-play mr-1"></i>Ver
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-semibold text-sm mt-2 line-clamp-2">Made in Abyss</h3>
+                </div>
+
+                <!-- Related Card 6 -->
+                <div class="group">
+                    <div class="aspect-[3/4] relative overflow-hidden rounded-lg">
+                        <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/kYQTimbVdWs3Enzfq1tOT4qSyAP.jpg" 
+                            alt="Related Anime" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <div class="w-full">
+                                <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py

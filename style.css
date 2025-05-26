@@ -1,0 +1,204 @@
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Colores personalizados */
+        .text-accent { color: #f3c669; }
+        .bg-accent { background-color: #f3c669; }
+        .border-accent { border-color: #f3c669; }
+
+        /* Animaciones */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .slide-in { animation: slideIn 0.6s ease forwards; }
+
+        /* Efectos hover */
+        .hover-scale { transition: all 0.3s ease; }
+        .hover-scale:hover { transform: scale(1.05); }
+
+        /* Scrollbar oculto */
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+        /* Grid responsive optimizado */
+        .anime-grid {
+            display: grid;
+            gap: 0.75rem;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (min-width: 640px) { .anime-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; } }
+        @media (min-width: 1280px) { .anime-grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 1536px) { .anime-grid { grid-template-columns: repeat(5, 1fr); } }
+
+        /* Padding móvil optimizado */
+        @media (max-width: 640px) {
+            .container { padding-left: 20px !important; padding-right: 20px !important; }
+        }
+
+        /* Hero Slider - Estructura oficial Swiffy Slider */
+        .hero-slider {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            border-radius: 0.5rem;
+        }
+
+        /* Aspecto ratio personalizado para 500px de altura */
+        .hero-slider.slider-item-ratio-custom .slider-container li {
+            aspect-ratio: unset;
+            height: 400px;
+        }
+
+        .hero-slider .slider-container li {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Contenido del slide superpuesto */
+        .hero-slider .slide-content {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+            display: flex;
+            align-items: center;
+            padding: clamp(20px, 5vw, 48px);
+            z-index: 10;
+        }
+
+        .hero-slider .content-wrapper {
+            width: 100%;
+            max-width: clamp(300px, 50vw, 700px);
+        }
+
+        .hero-slider h1 {
+            font-size: clamp(1.75rem, 4vw, 3rem);
+            line-height: 1.2;
+            margin-bottom: clamp(12px, 2vw, 20px);
+            font-weight: 800;
+            color: white;
+        }
+
+        .hero-slider p {
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            margin-bottom: clamp(20px, 3vw, 28px);
+            display: -webkit-box;
+            -webkit-line-clamp: clamp(3, 1vw, 4);
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+            color: #e5e7eb;
+        }
+
+        .hero-slider .slide-buttons {
+            display: flex;
+            gap: clamp(10px, 2vw, 12px);
+            flex-wrap: wrap;
+        }
+
+        .hero-slider .slide-btn {
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            padding: clamp(10px 20px, 2vw, 14px 28px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            min-height: 44px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Navegación personalizada para Swiffy Slider */
+        .hero-slider .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s ease;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+        /* Cards optimizadas */
+        .anime-card, .series-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .series-card:hover .series-overlay { opacity: 1; }
+        .series-card:hover .series-info { transform: translateY(0); }
+        .series-card:hover img { transform: scale(1.05); }
+
+        .series-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.9) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .series-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        /* Menús móviles optimizados */
+        .mobile-panel {
+            transition: all 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .mobile-panel.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #mobileSearch {
+            transform: translateY(-100%);
+        }
+
+        #mobileSearch.active {
+            transform: translateY(0);
+        }
+
+        /* Efecto shimmer */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .shimmer {
+            animation: shimmer 2s infinite;
+            background: linear-gradient(to right, #1a1a1a 4%, #2a2a2a 25%, #1a1a1a 36%);
+            background-size: 1000px 100%;
+        }
+   
