@@ -254,9 +254,7 @@ body {
 
 .hero-slider .content-wrapper {
     width: 100%;
-    max-width: clamp(300px, 50vw, 700px); /* Controla el ancho del texto */
-    /* Si align-items en slide-content es center, esto centraría el bloque de texto */
-    /* margin-left: auto; margin-right: auto; */
+    max-width: clamp(300px, 50vw, 700px);
 }
 
 .hero-slider .content-wrapper h1 {

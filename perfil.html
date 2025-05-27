@@ -17,46 +17,46 @@
     </style>
 </head>
 <body class="antialiased"> 
-   <header id="mainHeader" class="fixed top-0 w-full z-50 header-scrolled">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="flex items-center justify-between h-16 lg:h-20">
-                <div class="flex items-center space-x-4 lg:space-x-6">
-                    <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
-                        <div class="w-9 h-9 lg:w-10 lg:h-10 bg-accent rounded-lg flex items-center justify-center shadow-md">
-                            <i class="fas fa-play text-black text-base lg:text-lg"></i>
-                        </div>
-                        <span class="text-lg lg:text-2xl font-bold text-white">AnimeStream</span>
-                    </a>
-                    <nav class="hidden lg:flex items-center space-x-4 xl:space-x-5">
-                        <a href="index.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Inicio</a>
-                        <a href="catalogo.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Catálogo</a>
-                        <a href="tendencia.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Tendencia</a>
-                        <a href="top.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Top</a>
-                    </nav>
-                </div>
-
-                <div class="flex items-center space-x-2 lg:space-x-3 flex-shrink-0">
-                    <div class="hidden lg:block relative">
-                        <button id="desktopSearchBtn" class="text-gray-300 hover:text-accent transition-colors p-2 group" title="Buscar">
-                            <i class="fas fa-search text-lg"></i>
-                        </button>
-                        <div id="desktopSearchInputContainer" class="hidden absolute right-0 top-full mt-2 w-72">
-                             <input type="text" placeholder="Buscar anime..." class="bg-gray-800 text-white w-full rounded-full py-2.5 px-5 focus:outline-none focus:ring-2 ring-accent transition-all text-sm shadow-lg">
-                        </div>
+   <header id="mainHeader" class="fixed top-0 w-full z-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-12">
+        <div class="flex items-center justify-between h-16 lg:h-20">
+            <div class="flex items-center space-x-4 lg:space-x-6">
+                <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
+                    <div class="w-9 h-9 lg:w-10 lg:h-10 bg-accent rounded-lg flex items-center justify-center shadow-md">
+                        <i class="fas fa-play text-black text-base lg:text-lg"></i>
                     </div>
-                    <a href="perfil.html" title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-accent/30 border-2 border-accent text-accent rounded-full transition-colors flex items-center justify-center ring-2 ring-accent/50 shadow-lg">
-                        <i class="fas fa-user text-base lg:text-lg"></i>
-                    </a>
-                    <button id="mobileSearchBtn" title="Buscar" class="lg:hidden w-9 h-9 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
-                        <i class="fas fa-search text-base"></i>
+                    <span class="text-lg lg:text-2xl font-bold text-white">AnimeStream</span>
+                </a>
+                <nav class="hidden lg:flex items-center space-x-4 xl:space-x-5">
+                    <a href="index.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Inicio</a>
+                    <a href="catalogo.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Catálogo</a>
+                    <a href="tendencia.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Tendencia</a>
+                    <a href="top.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Top</a>
+                </nav>
+            </div>
+
+            <div class="flex items-center space-x-2 lg:space-x-3 flex-shrink-0">
+                <div class="hidden lg:block relative">
+                    <button id="desktopSearchBtn" class="text-gray-300 hover:text-accent transition-colors p-2 group" title="Buscar">
+                        <i class="fas fa-search text-lg"></i>
                     </button>
-                    <button class="lg:hidden text-gray-300 hover:text-accent transition-colors p-1" id="mobileMenuBtn" title="Menú">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
+                    <div id="desktopSearchInputContainer" class="absolute top-0 right-11 w-72 hidden">
+                        <input type="text" placeholder="Buscar anime..." class="bg-gray-800 text-white w-full rounded-full py-2.5 px-5 focus:outline-none focus:ring-2 ring-accent transition-all text-sm shadow-lg">
+                    </div>
                 </div>
+                <button title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                    <i class="fas fa-user text-base lg:text-lg"></i>
+                </button>
+                <button id="mobileSearchBtn" title="Buscar" class="lg:hidden w-9 h-9 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                    <i class="fas fa-search text-base"></i>
+                </button>
+                <button class="lg:hidden text-gray-300 hover:text-accent transition-colors p-1" id="mobileMenuBtn" title="Menú">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <div id="mobileMenu" class="fixed inset-0 bg-gray-950/95 backdrop-blur-lg z-[60] mobile-panel">
         <div class="flex flex-col items-center justify-center h-full space-y-6">
@@ -95,7 +95,7 @@
                             
                             <div class="mt-5 flex flex-wrap justify-center sm:justify-start gap-3 items-center">
                                 <span id="followedCount" class="bg-accent/20 text-accent text-sm font-semibold px-4 py-1.5 rounded-full flex items-center">
-                                    <i class="fas fa-bookmark mr-2"></i> ... Animes en Mi Lista
+                                    <i class="fas fa-bookmark mr-2"></i> 1 Anime en Mi Lista
                                 </span>
                                 <button class="bg-gray-700 hover:bg-gray-600/80 text-white text-sm font-medium px-4 py-1.5 rounded-full transition-colors flex items-center">
                                     <i class="fas fa-user-edit mr-2"></i>Editar Perfil
@@ -112,6 +112,37 @@
             <section>
                 <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 md:mb-8 animate-on-scroll">Mi Lista <span class="text-accent">de Animes</span></h2>
                 <div id="followedAnimeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 lg:gap-5">
+                    
+                    <div class="animate-on-scroll group relative flex flex-col card-item-bg backdrop-blur-md border border-gray-700/50 rounded-xl overflow-hidden shadow-xl transition-all duration-300 ease-in-out hover:shadow-accent/25 hover:border-accent/50 transform hover:-translate-y-1.5">
+                        <div class="relative aspect-[3/4.5] w-full">
+                            <a href="ficha.html?id=52991" class="block w-full h-full group/image">
+                                <img src="https://cdn.myanimelist.net/images/anime/1015/138006l.jpg" alt="Sousou no Frieren" class="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover/image:scale-105" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x450/1a1a1a/FFFFFF/?text=No+Disponible';this.classList.add('img-error');">
+                            </a>
+                            <button class="unfollow-btn-static absolute top-2.5 right-2.5 z-30 w-8 h-8 flex items-center justify-center bg-red-600/90 hover:bg-red-500 rounded-full text-white transition-all duration-300 ease-in-out transform hover:scale-110" title="Dejar de Seguir">
+                                <i class="fas fa-times text-sm"></i>
+                            </button>
+                            <span class="absolute top-2.5 left-2.5 z-20 bg-black/70 backdrop-blur-sm text-white text-[0.65rem] sm:text-xs font-semibold px-2.5 py-1 rounded-full">TV</span>
+                        </div>
+    
+                        <div class="p-3 md:p-4 flex flex-col flex-grow">
+                            <h3 class="text-sm md:text-base font-bold text-white truncate mb-1 group-hover:text-accent transition-colors duration-300" title="Sousou no Frieren">
+                                <a href="ficha.html?id=52991">Sousou no Frieren</a>
+                            </h3>
+                            <div class="flex items-center justify-between text-xs text-gray-400 mb-2.5">
+                                <span class="flex items-center"><i class="fas fa-star text-accent mr-1"></i> 9.3</span>
+                                <span class="text-right">Completado</span>
+                            </div>
+                            
+                            <div class="w-full bg-gray-700/50 rounded-full h-1.5 mb-2.5 overflow-hidden progress-bar-container">
+                                <div class="bg-accent h-1.5 rounded-full transition-all duration-500 ease-out" style="width: 100%;"></div>
+                            </div>
+    
+                            <div class="flex flex-wrap gap-1.5 mt-auto pt-1">
+                                <span class="bg-gray-700/80 text-gray-300 text-[0.65rem] px-2 py-0.5 rounded-full">Aventura</span>
+                                <span class="bg-gray-700/80 text-gray-300 text-[0.65rem] px-2 py-0.5 rounded-full">Drama</span>
+                            </div>
+                        </div>
+                    </div>
                     </div>
             </section>
 
@@ -125,6 +156,32 @@
         </div>
     </footer>
 
-<script src="funciones.js"></script>
+    <script src="funciones.js"></script>
+    <script>
+        // Script para el botón estático (opcional, si quieres simular la acción)
+        document.querySelectorAll('.unfollow-btn-static').forEach(button => {
+            button.addEventListener('click', function() {
+                if (confirm('¿Estás seguro de que quieres dejar de seguir este anime? (Ejemplo estático)')) {
+                    // En una versión estática, podrías simplemente ocultar la tarjeta
+                    this.closest('.animate-on-scroll').style.display = 'none';
+                    // Actualizar el contador (ejemplo muy básico)
+                    const countSpan = document.getElementById('followedCount');
+                    if(countSpan) countSpan.innerHTML = `<i class="fas fa-bookmark mr-2"></i> 0 Animes en Mi Lista`;
+                    
+                    // Si todas las tarjetas estáticas se eliminan, mostrar mensaje de lista vacía
+                    const grid = document.getElementById('followedAnimeGrid');
+                    let visibleCards = 0;
+                    grid.querySelectorAll('.animate-on-scroll').forEach(card => {
+                        if(card.style.display !== 'none') visibleCards++;
+                    });
+                    if(visibleCards === 0 && !grid.querySelector('.empty-list-message-static')) {
+                        grid.innerHTML = `<p class="empty-list-message-static col-span-full text-center text-gray-400 py-10 text-lg">
+                                            Tu lista está vacía. ¡<a href="catalogo.html" class="text-accent hover:underline">Explora el catálogo</a> y añade tus animes favoritos!
+                                       </p>`;
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -16,45 +16,46 @@
     </style>
 </head>
 <body class="antialiased"> 
-   <header id="mainHeader" class="fixed top-0 w-full z-50 header-scrolled">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="flex items-center justify-between h-16 lg:h-20">
-                <div class="flex items-center space-x-4 lg:space-x-6">
-                    <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
-                        <div class="w-9 h-9 lg:w-10 lg:h-10 bg-accent rounded-lg flex items-center justify-center shadow-md">
-                            <i class="fas fa-play text-black text-base lg:text-lg"></i>
-                        </div>
-                        <span class="text-lg lg:text-2xl font-bold text-white">AnimeStream</span>
-                    </a>
-                    <nav class="hidden lg:flex items-center space-x-4 xl:space-x-5">
-                        <a href="index.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Inicio</a>
-                        <a href="catalogo.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Catálogo</a>
-                        <a href="tendencia.html" class="text-accent transition-colors text-sm font-medium">Tendencia</a> <a href="top.html" class="text-gray-300 hover:text-accent transition-colors text-sm font-medium">Top</a>
-                    </nav>
-                </div>
-
-                <div class="flex items-center space-x-2 lg:space-x-3 flex-shrink-0">
-                    <div class="hidden lg:block relative">
-                        <button id="desktopSearchBtn" class="text-gray-300 hover:text-accent transition-colors p-2 group" title="Buscar">
-                            <i class="fas fa-search text-lg"></i>
-                        </button>
-                        <div id="desktopSearchInputContainer" class="hidden absolute right-0 top-full mt-2 w-72">
-                             <input type="text" placeholder="Buscar anime..." class="bg-gray-800 text-white w-full rounded-full py-2.5 px-5 focus:outline-none focus:ring-2 ring-accent transition-all text-sm shadow-lg">
-                        </div>
+   <header id="mainHeader" class="fixed top-0 w-full z-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-12">
+        <div class="flex items-center justify-between h-16 lg:h-20">
+            <div class="flex items-center space-x-4 lg:space-x-6">
+                <a href="index.html" class="flex items-center space-x-2 flex-shrink-0">
+                    <div class="w-9 h-9 lg:w-10 lg:h-10 bg-accent rounded-lg flex items-center justify-center shadow-md">
+                        <i class="fas fa-play text-black text-base lg:text-lg"></i>
                     </div>
-                    <button title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
-                        <i class="fas fa-user text-base lg:text-lg"></i>
+                    <span class="text-lg lg:text-2xl font-bold text-white">AnimeStream</span>
+                </a>
+                <nav class="hidden lg:flex items-center space-x-4 xl:space-x-5">
+                    <a href="index.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Inicio</a>
+                    <a href="catalogo.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Catálogo</a>
+                    <a href="tendencia.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Tendencia</a>
+                    <a href="top.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Top</a>
+                </nav>
+            </div>
+
+            <div class="flex items-center space-x-2 lg:space-x-3 flex-shrink-0">
+                <div class="hidden lg:block relative">
+                    <button id="desktopSearchBtn" class="text-gray-300 hover:text-accent transition-colors p-2 group" title="Buscar">
+                        <i class="fas fa-search text-lg"></i>
                     </button>
-                    <button id="mobileSearchBtn" title="Buscar" class="lg:hidden w-9 h-9 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
-                        <i class="fas fa-search text-base"></i>
-                    </button>
-                    <button class="lg:hidden text-gray-300 hover:text-accent transition-colors p-1" id="mobileMenuBtn" title="Menú">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
+                    <div id="desktopSearchInputContainer" class="absolute top-0 right-11 w-72 hidden">
+                        <input type="text" placeholder="Buscar anime..." class="bg-gray-800 text-white w-full rounded-full py-2.5 px-5 focus:outline-none focus:ring-2 ring-accent transition-all text-sm shadow-lg">
+                    </div>
                 </div>
+                <button title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                    <i class="fas fa-user text-base lg:text-lg"></i>
+                </button>
+                <button id="mobileSearchBtn" title="Buscar" class="lg:hidden w-9 h-9 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                    <i class="fas fa-search text-base"></i>
+                </button>
+                <button class="lg:hidden text-gray-300 hover:text-accent transition-colors p-1" id="mobileMenuBtn" title="Menú">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <div id="mobileMenu" class="fixed inset-0 bg-gray-950/95 backdrop-blur-lg z-[60] mobile-panel">
         <div class="flex flex-col items-center justify-center h-full space-y-6">
