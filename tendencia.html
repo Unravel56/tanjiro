@@ -8,11 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilo adicional para el glow del acento en hover, si se desea algo más pronunciado */
-        /* .card-glow:hover {
-            box-shadow: 0 0 15px 5px var(--accent-color-translucent, rgba(243, 198, 105, 0.3)), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        } */
-        /* En style.css, podrías definir --accent-color-translucent si usas esto */
+    
     </style>
 </head>
 <body class="antialiased"> 
@@ -43,7 +39,7 @@
                         <input type="text" placeholder="Buscar anime..." class="bg-gray-800 text-white w-full rounded-full py-2.5 px-5 focus:outline-none focus:ring-2 ring-accent transition-all text-sm shadow-lg">
                     </div>
                 </div>
-                <button title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                <button id="profileBtn" title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
                     <i class="fas fa-user text-base lg:text-lg"></i>
                 </button>
                 <button id="mobileSearchBtn" title="Buscar" class="lg:hidden w-9 h-9 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
@@ -146,6 +142,143 @@
             <p class="mt-1">Diseño inspirado para fines demostrativos.</p>
         </div>
     </footer>
+
+    <!-- Modal de Login/Registro -->
+    <div id="authModal" class="fixed inset-0 z-[70] hidden">
+        <!-- Overlay oscuro -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="authModalOverlay"></div>
+        
+        <!-- Contenedor del modal -->
+        <div class="relative flex items-center justify-center min-h-screen p-4">
+            <div class="relative w-full max-w-md bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-800/50 overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="authModalContent">
+                
+                <!-- Botón de cerrar -->
+                <button id="closeAuthModal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-800/50 hover:bg-gray-700/70 text-gray-400 hover:text-white transition-all z-10">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <!-- Contenido del modal -->
+                <div class="p-8 pt-14">
+                    <!-- Tabs de Login/Registro -->
+                    <div class="flex mb-8 bg-gray-800/50 rounded-lg p-1">
+                        <button id="loginTab" class="flex-1 py-2.5 px-4 rounded-md text-sm font-medium transition-all bg-accent text-black">
+                            Iniciar Sesión
+                        </button>
+                        <button id="registerTab" class="flex-1 py-2.5 px-4 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white">
+                            Registrarse
+                        </button>
+                    </div>
+                    
+                    <!-- Formulario de Login -->
+                    <form id="loginForm" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Email o Usuario</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-500"></i>
+                                </div>
+                                <input type="text" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="tu@email.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Contraseña</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-500"></i>
+                                </div>
+                                <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="••••••••">
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" class="w-4 h-4 text-accent bg-gray-800 border-gray-600 rounded focus:ring-accent focus:ring-offset-0 focus:ring-2">
+                                <span class="ml-2 text-sm text-gray-400">Recordarme</span>
+                            </label>
+                            <a href="#" class="text-sm text-accent hover:text-yellow-400 transition-colors">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-accent hover:bg-yellow-500 text-black font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+                            Iniciar Sesión
+                        </button>
+                        
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-700/50"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-4 bg-gray-900/95 text-gray-500">O continúa con</span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" class="flex items-center justify-center gap-2 bg-gray-800/50 hover:bg-gray-700/70 text-gray-300 font-medium py-2.5 px-4 rounded-lg transition-all">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button type="button" class="flex items-center justify-center gap-2 bg-gray-800/50 hover:bg-gray-700/70 text-gray-300 font-medium py-2.5 px-4 rounded-lg transition-all">
+                                <i class="fab fa-discord"></i>
+                                Discord
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Formulario de Registro (oculto inicialmente) -->
+                    <form id="registerForm" class="space-y-5 hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Nombre de Usuario</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <input type="text" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="otaku_master">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-500"></i>
+                                </div>
+                                <input type="email" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="tu@email.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Contraseña</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-500"></i>
+                                </div>
+                                <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="••••••••">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Confirmar Contraseña</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-500"></i>
+                                </div>
+                                <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="••••••••">
+                            </div>
+                        </div>
+                        
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 text-accent bg-gray-800 border-gray-600 rounded focus:ring-accent focus:ring-offset-0 focus:ring-2">
+                            <span class="ml-2 text-sm text-gray-400">Acepto los <a href="#" class="text-accent hover:text-yellow-400">términos y condiciones</a></span>
+                        </label>
+                        
+                        <button type="submit" class="w-full bg-accent hover:bg-yellow-500 text-black font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+                            Crear Cuenta
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="funciones.js"></script>
     <style>

@@ -21,6 +21,16 @@ class AnimeStreamApp {
             closeMobileSearch: document.getElementById("closeMobileSearch"),
             mobileSearchPanel: document.getElementById("mobileSearch"),
             episodeSearchInput: document.getElementById('episodeSearchInput'),
+            // Nuevos elementos para el modal de autenticación
+            profileBtn: document.getElementById('profileBtn'),
+            authModal: document.getElementById('authModal'),
+            authModalOverlay: document.getElementById('authModalOverlay'),
+            authModalContent: document.getElementById('authModalContent'),
+            closeAuthModal: document.getElementById('closeAuthModal'),
+            loginTab: document.getElementById('loginTab'),
+            registerTab: document.getElementById('registerTab'),
+            loginForm: document.getElementById('loginForm'),
+            registerForm: document.getElementById('registerForm')
         };
     }
 
@@ -29,7 +39,9 @@ class AnimeStreamApp {
             mainHeader, desktopSearchBtn, desktopSearchInputContainer,
             mobileMenuBtn, closeMobileMenu, mobileMenu, 
             mobileSearchBtn, closeMobileSearch, mobileSearchPanel,
-            episodeSearchInput 
+            episodeSearchInput,
+            profileBtn, authModal, authModalOverlay, authModalContent,
+            closeAuthModal, loginTab, registerTab, loginForm, registerForm
         } = this.elements;
 
         if (mainHeader) {
@@ -69,7 +81,34 @@ class AnimeStreamApp {
         mobileMenu?.addEventListener("click", (e) => { if (e.target === mobileMenu) this.closeAllPanels(); });
         mobileSearchPanel?.addEventListener("click", (e) => { if (e.target === mobileSearchPanel) this.closeAllPanels(); });
         
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') this.closeAllPanels(); });
+        // Event listeners para el modal de autenticación
+        profileBtn?.addEventListener("click", () => this.openAuthModal());
+        closeAuthModal?.addEventListener("click", () => this.closeAuthModal());
+        authModalOverlay?.addEventListener("click", () => this.closeAuthModal());
+        
+        // Tabs de login/registro
+        loginTab?.addEventListener("click", () => this.switchToLogin());
+        registerTab?.addEventListener("click", () => this.switchToRegister());
+        
+        // Prevenir envío de formularios (solo demo)
+        loginForm?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("Login form submitted");
+            // Aquí iría la lógica de autenticación
+        });
+        
+        registerForm?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("Register form submitted");
+            // Aquí iría la lógica de registro
+        });
+        
+        document.addEventListener('keydown', (e) => { 
+            if (e.key === 'Escape') {
+                this.closeAllPanels();
+                this.closeAuthModal();
+            }
+        });
 
         if (episodeSearchInput) {
             episodeSearchInput.addEventListener('input', () => {
@@ -132,6 +171,63 @@ class AnimeStreamApp {
         this.elements.mobileMenu?.classList.remove("active");
         this.elements.mobileSearchPanel?.classList.remove("active");
         document.body.style.overflow = '';
+    }
+
+    // Métodos para el modal de autenticación
+    openAuthModal() {
+        const { authModal, authModalContent } = this.elements;
+        if (authModal && authModalContent) {
+            authModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Animación de entrada
+            setTimeout(() => {
+                authModalContent.classList.remove('scale-95', 'opacity-0');
+                authModalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+    }
+
+    closeAuthModal() {
+        const { authModal, authModalContent } = this.elements;
+        if (authModal && authModalContent) {
+            // Animación de salida
+            authModalContent.classList.remove('scale-100', 'opacity-100');
+            authModalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                authModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+    }
+
+    switchToLogin() {
+        const { loginTab, registerTab, loginForm, registerForm } = this.elements;
+        
+        // Cambiar tabs activos
+        loginTab?.classList.add('bg-accent', 'text-black');
+        loginTab?.classList.remove('text-gray-400');
+        registerTab?.classList.remove('bg-accent', 'text-black');
+        registerTab?.classList.add('text-gray-400');
+        
+        // Cambiar formularios
+        loginForm?.classList.remove('hidden');
+        registerForm?.classList.add('hidden');
+    }
+
+    switchToRegister() {
+        const { loginTab, registerTab, loginForm, registerForm } = this.elements;
+        
+        // Cambiar tabs activos
+        registerTab?.classList.add('bg-accent', 'text-black');
+        registerTab?.classList.remove('text-gray-400');
+        loginTab?.classList.remove('bg-accent', 'text-black');
+        loginTab?.classList.add('text-gray-400');
+        
+        // Cambiar formularios
+        registerForm?.classList.remove('hidden');
+        loginForm?.classList.add('hidden');
     }
 
     initAnimations() {

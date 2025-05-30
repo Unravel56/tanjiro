@@ -280,3 +280,44 @@ body {
     gap: clamp(8px, 1.5vw, 10px);
     flex-wrap: wrap;
 }
+
+/* Estilos para el modal de autenticación */
+#authModal {
+    animation: fadeIn 0.3s ease-out;
+}
+
+#authModalContent {
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Animación para los checkboxes personalizados */
+input[type="checkbox"]:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* Hover effect para los botones sociales */
+#authModal button[type="button"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Focus styles mejorados para inputs */
+#authModal input:focus {
+    box-shadow: 0 0 0 3px rgba(243, 198, 105, 0.1);
+}
+
+/* Transición suave para los tabs */
+#loginTab, #registerTab {
+    transition: all 0.2s ease;
+}
+
+/* Efecto para links dentro del modal */
+#authModal a {
+    transition: color 0.2s ease;
+    text-decoration: none;
+}
+
+#authModal a:hover {
+    text-decoration: underline;
+}
