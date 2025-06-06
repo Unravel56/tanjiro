@@ -212,31 +212,7 @@
             </div>
         </section>
 
-        <section id="rating-social" class="pt-8 lg:pt-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
-                <div class="info-card rounded-lg p-6 lg:p-8"> <h3 class="text-xl lg:text-2xl font-bold mb-4 text-gray-100">Calificación de la Audiencia</h3>
-                    <div class="flex items-center gap-4 lg:gap-6">
-                        <div class="text-center">
-                            <p class="text-4xl sm:text-5xl lg:text-6xl font-bold text-accent">9.5</p>
-                            <p class="text-xs sm:text-sm text-gray-400 mt-1">Puntuación</p>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-1 mb-1 text-lg sm:text-xl lg:text-2xl">
-                                <i class="fas fa-star text-accent"></i><i class="fas fa-star text-accent"></i><i class="fas fa-star text-accent"></i><i class="fas fa-star text-accent"></i><i class="fas fa-star-half-alt text-accent"></i>
-                            </div>
-                            <p class="text-xs sm:text-sm text-gray-400">Basado en 12,458 votos</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="info-card rounded-lg p-6 lg:p-8"> <h3 class="text-xl lg:text-2xl font-bold mb-3 text-gray-100">Comparte con Amigos</h3>
-                    <p class="text-gray-400 mb-4 text-xs sm:text-sm">Si te gustó Frieren, ¡no dudes en compartirlo!</p>
-                    <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm sm:text-base">
-                        <i class="fas fa-share-alt"></i>
-                        Compartir Serie
-                    </button>
-                </div>
-            </div>
-        </section>
+
 
         <section id="related-series" class="pt-8 lg:pt-12 ">
             <h2 class="text-2xl lg:text-3xl font-bold mb-6 lg:mb-8 text-gray-100">Te podría gustar...</h2>
@@ -255,34 +231,7 @@
                         <h3 class="font-semibold text-xs sm:text-sm mt-2 line-clamp-2 text-gray-200 group-hover:text-accent transition-colors">Mushoku Tensei: Jobless Reincarnation</h3>
                     </a>
                 </div>
-                <script>
-                  const relatedSeries = [
-                    { title: "Violet Evergarden", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/ra8CKkCHjSok8L9meEP4WuOukNK.jpg"},
-                    { title: "To Your Eternity", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/kxpPNN2pg0w13mN3iV54y1k9DPA.jpg"},
-                    { title: "Made in Abyss", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/mfNdYoYHf2skxL1u9hSPXAR2LJy.jpg"},
-                    { title: "Ancient Magus' Bride", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/nTw1Qn37hMCE9QEw9N2d0Sn85q3.jpg"},
-                    { title: "Somali and the Forest Spirit", img: "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/3C1rLq682ycQ0T4rpK9c6YXLQjY.jpg"}
-                  ];
-                  relatedSeries.forEach(serie => {
-                    document.write(`
-                    <div class="group related-item-card">
-                        <a href="#" class="block">
-                            <div class="aspect-[3/4.5] relative overflow-hidden rounded-lg shadow-lg border border-gray-800/50">
-                                <img src="${serie.img}" alt="Related Anime: ${serie.title}" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-2.5 lg:p-3">
-                                    <div class="overlay-content">
-                                        <button class="w-full bg-accent hover:bg-yellow-400 text-black font-bold py-1.5 lg:py-2 rounded transition-colors text-[0.7rem] lg:text-xs">
-                                            <i class="fas fa-play mr-1"></i>Ver
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <h3 class="font-semibold text-xs sm:text-sm mt-2 line-clamp-2 text-gray-200 group-hover:text-accent transition-colors">${serie.title}</h3>
-                        </a>
-                    </div>
-                    `);
-                  });
-                </script>
+              
             </div>
         </section>
     </main>

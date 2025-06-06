@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AnimeStream - Tu portal de anime</title>
+    <meta name="description" content="Explora un vasto catálogo de anime, descubre nuevas series, sigue tus favoritas y disfruta de los últimos capítulos en AnimeStream, tu portal de anime.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Swiffy Slider CSS -->
     <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">
    <link rel="stylesheet" href="style.css">
-   <script src="funciones.js"></script>
+   <script src="funciones.js" defer></script>
 </head>
 
 <body class="bg-black text-white">
@@ -24,7 +24,7 @@
                     <span class="text-lg lg:text-2xl font-bold text-white">AnimeStream</span>
                 </a>
                 <nav class="hidden lg:flex items-center space-x-4 xl:space-x-5">
-                    <a href="index.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Inicio</a>
+                    <a href="index.html" class="text-accent font-semibold transition-colors text-base">Inicio</a>
                     <a href="catalogo.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Catálogo</a>
                     <a href="tendencia.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Tendencia</a>
                     <a href="top.html" class="text-gray-300 hover:text-accent transition-colors text-base font-medium">Top</a>
@@ -40,7 +40,7 @@
                         <input type="text" placeholder="Buscar anime..." class="bg-gray-800 text-white w-full rounded-full py-2.5 px-5 focus:outline-none focus:ring-2 ring-accent transition-all text-sm shadow-lg">
                     </div>
                 </div>
-                <button title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
+                <button id="profileBtn" title="Perfil" class="w-9 h-9 lg:w-10 lg:h-10 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
                     <i class="fas fa-user text-base lg:text-lg"></i>
                 </button>
                 <button id="mobileSearchBtn" title="Buscar" class="lg:hidden w-9 h-9 bg-gray-700/70 hover:bg-gray-600/90 text-gray-300 rounded-full transition-colors flex items-center justify-center">
@@ -54,23 +54,21 @@
     </div>
 </header>
 
-    <!-- Mobile Menu -->
     <div id="mobileMenu" class="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-[60] mobile-panel">
         <div class="flex flex-col items-center justify-center h-full space-y-8">
-            <a href="#" class="text-2xl hover:text-accent transition-colors">Inicio</a>
-            <a href="#" class="text-2xl hover:text-accent transition-colors">Catálogo</a>
-            <a href="#" class="text-2xl hover:text-accent transition-colors">Tendencia</a>
-            <a href="#" class="text-2xl hover:text-accent transition-colors">Top</a>
+            <a href="index.html" class="text-2xl text-accent font-semibold">Inicio</a>
+            <a href="catalogo.html" class="text-2xl hover:text-accent transition-colors">Catálogo</a>
+            <a href="tendencia.html" class="text-2xl hover:text-accent transition-colors">Tendencia</a>
+            <a href="top.html" class="text-2xl hover:text-accent transition-colors">Top</a>
             <button id="closeMobileMenu" class="mt-8 text-gray-400">
                 <i class="fas fa-times text-3xl"></i>
             </button>
         </div>
     </div>
 
-    <!-- Mobile Search -->
     <div id="mobileSearch" class="fixed top-16 inset-x-0 bg-gray-900/95 backdrop-blur-md z-[55] p-4 mobile-panel">
         <div class="relative">
-            <input type="text" placeholder="Buscar anime..." 
+            <input type="text" placeholder="Buscar anime..."
                 class="bg-gray-800 text-white w-full rounded-full py-3 pl-12 pr-12 focus:outline-none focus:ring-2 focus:ring-accent transition-all">
             <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
             <button id="closeMobileSearch" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
@@ -87,17 +85,17 @@
         </div>
     </div>
 
-    <main class="container mx-auto pt-24 pb-12" style="padding-left: 49px; padding-right: 49px;">
+    <main class="container mx-auto pt-24 pb-12 px-4 sm:px-6 lg:px-8 xl:px-12">
       <section class="mb-12">
     <div class="swiffy-slider hero-slider slider-item-ratio-custom slider-nav-animation slider-nav-animation-fadein slider-indicators-round slider-indicators-dark slider-indicators-outside">
         <ul class="slider-container">
             <li>
-                <img src="https://m.media-amazon.com/images/S/pv-target-images/55154728a7c50336ef32b7fe79276f77e4a6ee612a3822c8852c543246fd0e89._SX1080_FMpng_.png" 
-                    alt="Demon Slayer Banner" loading="lazy">
+                <img src="https://m.media-amazon.com/images/S/pv-target-images/55154728a7c50336ef32b7fe79276f77e4a6ee612a3822c8852c543246fd0e89._SX1080_FMpng_.png"
+                    alt="Demon Slayer: Arco del Herrero Banner" loading="lazy">
                 <div class="slide-content">
                     <div class="content-wrapper">
                         <h1 class="text-white">Demon Slayer: Arco del Herrero</h1>
-                        <p class="text-gray-200">Tanjiro viaja a la aldea de los herreros para reparar su espada. Allí se encuentra con dos Pilares y debe enfrentar a demonios de rango superior.</p>
+                        <p class="text-gray-200 line-clamp-3">Tanjiro viaja a la aldea de los herreros para reparar su espada. Allí se encuentra con dos Pilares y debe enfrentar a demonios de rango superior.</p>
                         <div class="slide-buttons">
                             <button class="bg-accent hover:bg-yellow-400 text-black font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
                                 <i class="fas fa-play"></i>
@@ -112,12 +110,12 @@
                 </div>
             </li>
             <li>
-                <img src="https://m.media-amazon.com/images/S/pv-target-images/c3c9428567fd92d00815ab07ed2764bb3727bf4467caf47996474289174acc81._SX1080_FMjpg_.jpg" 
-                    alt="Attack on Titan Banner" loading="lazy">
+                <img src="https://m.media-amazon.com/images/S/pv-target-images/c3c9428567fd92d00815ab07ed2764bb3727bf4467caf47996474289174acc81._SX1080_FMjpg_.jpg"
+                    alt="Attack on Titan: Final Season Banner" loading="lazy">
                 <div class="slide-content">
                     <div class="content-wrapper">
                         <h1 class="text-white">Attack on Titan: Final Season</h1>
-                        <p class="text-gray-200">La batalla final por la humanidad comienza. Eren y sus amigos enfrentan decisiones imposibles mientras el mundo entero está en juego.</p>
+                        <p class="text-gray-200 line-clamp-3">La batalla final por la humanidad comienza. Eren y sus amigos enfrentan decisiones imposibles mientras el mundo entero está en juego.</p>
                         <div class="slide-buttons">
                             <button class="bg-accent hover:bg-yellow-400 text-black font-bold px-4 md:px-6 py-2 md:py-3 rounded-lg flex items-center gap-2 transition-colors text-sm md:text-base">
                                 <i class="fas fa-play"></i>
@@ -142,66 +140,64 @@
             </div>
     </div>
 </section>
-        
+
         <section class="mb-12">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-2xl md:text-3xl font-bold">Últimos Capítulos</h2>
-                <a href="#" class="text-accent hover:text-yellow-400 transition-colors flex items-center space-x-1">
+                <a href="catalogo.html" class="text-accent hover:text-yellow-400 transition-colors flex items-center space-x-1">
                     <span>Ver todo</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
 
             <div class="anime-grid">
-                <div class="anime-card  rounded-lg overflow-hidden">
-                    <div class="aspect-[16/9] relative hover-scale">
-                        <img src="https://latanime.org/assets/img/serie/episodio/kuroshitsuji-midori-no-majo-hen-5-1748117542.jpg" 
-                            alt="Kuroshitsuji" class="w-full h-full object-cover">
+                <a href="#" class="block rounded-lg overflow-hidden group cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent">
+                    <div class="aspect-[16/9] relative overflow-hidden">
+                        <img src="https://latanime.org/assets/img/serie/episodio/kuroshitsuji-midori-no-majo-hen-5-1748117542.jpg"
+                            alt="Kuroshitsuji: Midori no Majo-hen - Episodio 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
                         <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 5</div>
-                       
                     </div>
-                    <div class="p-3">
-                        <h3 class="font-bold text-sm mb-1">Kuroshitsuji: Midori no Majo-hen</h3>
+                    <div class="p-3 ">
+                        <h3 class="font-bold text-sm mb-1 line-clamp-2 group-hover:text-accent transition-colors duration-300">Kuroshitsuji: Midori no Majo-hen</h3>
                         <p class="text-xs text-gray-400">Hace 2 horas</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="anime-card  rounded-lg overflow-hidden">
-                    <div class="aspect-[16/9] relative hover-scale">
-                        <img src="https://latanime.org/assets/img/serie/episodio/de-viejo-pueblerino-a-gran-maestro-espadachin-latino-8-1748114112.jpg" 
-                            alt="Espadachín" class="w-full h-full object-cover">
+                <a href="#" class="block rounded-lg overflow-hidden group cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent">
+                    <div class="aspect-[16/9] relative overflow-hidden">
+                        <img src="https://latanime.org/assets/img/serie/episodio/de-viejo-pueblerino-a-gran-maestro-espadachin-latino-8-1748114112.jpg"
+                            alt="De Viejo Pueblerino a Gran Maestro Espadachín - Episodio 8" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
                         <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 8</div>
                     </div>
-                    <div class="p-3">
-                        <h3 class="font-bold text-sm mb-1">De Viejo Pueblerino a Gran Maestro Espadachín</h3>
+                    <div class="p-3 ">
+                        <h3 class="font-bold text-sm mb-1 line-clamp-2 group-hover:text-accent transition-colors duration-300">De Viejo Pueblerino a Gran Maestro Espadachín</h3>
                         <p class="text-xs text-gray-400">Hace 3 horas</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="anime-card rounded-lg overflow-hidden">
-                    <div class="aspect-[16/9] relative hover-scale">
-                        <img src="https://latanime.org/assets/img/serie/episodio/de-viejo-pueblerino-a-gran-maestro-espadachin-castellano-8-1748115093.jpg" 
-                            alt="One Piece" class="w-full h-full object-cover">
+                <a href="#" class="block rounded-lg overflow-hidden group cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent">
+                    <div class="aspect-[16/9] relative overflow-hidden">
+                        <img src="https://latanime.org/assets/img/serie/episodio/de-viejo-pueblerino-a-gran-maestro-espadachin-castellano-8-1748115093.jpg"
+                            alt="One Piece - Episodio 1089" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
                         <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 1089</div>
-                       
                     </div>
-                    <div class="p-3">
-                        <h3 class="font-bold text-sm mb-1">One Piece</h3>
+                    <div class="p-3 ">
+                        <h3 class="font-bold text-sm mb-1 line-clamp-2 group-hover:text-accent transition-colors duration-300">One Piece</h3>
                         <p class="text-xs text-gray-400">Hace 5 horas</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="anime-card rounded-lg overflow-hidden">
-                    <div class="aspect-[16/9] relative hover-scale">
-                        <img src="https://latanime.org/assets/img/serie/episodio/witch-watch-4-1747558502.jpg" 
-                            alt="Witch Watch" class="w-full h-full object-cover">
+                <a href="#" class="block rounded-lg overflow-hidden group cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent">
+                    <div class="aspect-[16/9] relative overflow-hidden">
+                        <img src="https://latanime.org/assets/img/serie/episodio/witch-watch-4-1747558502.jpg"
+                            alt="Witch Watch - Episodio 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
                         <div class="absolute top-2 right-2 bg-accent text-black text-xs font-bold px-2 py-1 rounded">EP 4</div>
                     </div>
-                    <div class="p-3">
-                        <h3 class="font-bold text-sm mb-1">Witch Watch</h3>
+                    <div class="p-3 ">
+                        <h3 class="font-bold text-sm mb-1 line-clamp-2 group-hover:text-accent transition-colors duration-300">Witch Watch</h3>
                         <p class="text-xs text-gray-400">Hace 6 horas</p>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -210,12 +206,12 @@
                 <h2 class="text-2xl md:text-3xl font-bold">Continuar Viendo</h2>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-gray-900 rounded-lg overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all">
+                <a href="#" class="block bg-neutral-900 rounded-lg overflow-hidden group cursor-pointer hover:ring-2 hover:ring-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent transition-all">
                     <div class="aspect-video relative">
-                        <img src="https://latanime.org/assets/img/serie/episodio/witch-watch-5-1748163290.jpg" 
-                            alt="My Hero Academia" class="w-full h-full object-cover">
+                        <img src="https://latanime.org/assets/img/serie/episodio/witch-watch-5-1748163290.jpg"
+                            alt="Continuar viendo My Hero Academia" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <button class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
+                            <button aria-label="Continuar viendo My Hero Academia" class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform focus:outline-none">
                                 <i class="fas fa-play text-black text-xl ml-1"></i>
                             </button>
                         </div>
@@ -224,18 +220,18 @@
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold mb-1">My Hero Academia</h3>
-                        <p class="text-sm text-gray-400">S6 E15 - "El plan de Deku"</p>
+                        <h3 class="font-bold mb-1 line-clamp-1 group-hover:text-accent transition-colors duration-300">My Hero Academia</h3>
+                        <p class="text-sm text-gray-400 line-clamp-1">S6 E15 - "El plan de Deku"</p>
                         <p class="text-xs text-gray-500 mt-1">14:32 restantes</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="bg-gray-900 rounded-lg overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all">
+                <a href="#" class="block bg-neutral-900 rounded-lg overflow-hidden group cursor-pointer hover:ring-2 hover:ring-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent transition-all">
                     <div class="aspect-video relative">
-                        <img src="https://latanime.org/thumbs/imagen/anne-shirley-latino-1745703268.jpg?v=1.5" 
-                            alt="Anne Shirley" class="w-full h-full object-cover">
+                        <img src="https://latanime.org/thumbs/imagen/anne-shirley-latino-1745703268.jpg?v=1.5"
+                            alt="Continuar viendo Anne Shirley" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <button class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
+                             <button aria-label="Continuar viendo Anne Shirley" class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform focus:outline-none">
                                 <i class="fas fa-play text-black text-xl ml-1"></i>
                             </button>
                         </div>
@@ -244,18 +240,18 @@
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold mb-1">Anne Shirley</h3>
-                        <p class="text-sm text-gray-400">EP 8 - "Nuevo comienzo"</p>
+                        <h3 class="font-bold mb-1 line-clamp-1 group-hover:text-accent transition-colors duration-300">Anne Shirley</h3>
+                        <p class="text-sm text-gray-400 line-clamp-1">EP 8 - "Nuevo comienzo"</p>
                         <p class="text-xs text-gray-500 mt-1">18:45 restantes</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="bg-gray-900 rounded-lg overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all">
+                <a href="#" class="block bg-neutral-900 rounded-lg overflow-hidden group cursor-pointer hover:ring-2 hover:ring-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent transition-all">
                     <div class="aspect-video relative">
-                        <img src="https://latanime.org/assets/img/serie/episodio/detective-de-la-mesa-castellano-8-1748069257.jpg" 
-                            alt="Tokyo Revengers" class="w-full h-full object-cover">
+                        <img src="https://latanime.org/assets/img/serie/episodio/detective-de-la-mesa-castellano-8-1748069257.jpg"
+                            alt="Continuar viendo Tokyo Revengers" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <button class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
+                            <button aria-label="Continuar viendo Tokyo Revengers" class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform focus:outline-none">
                                 <i class="fas fa-play text-black text-xl ml-1"></i>
                             </button>
                         </div>
@@ -264,18 +260,18 @@
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold mb-1">Tokyo Revengers</h3>
-                        <p class="text-sm text-gray-400">S3 E8 - "La decisión de Takemichi"</p>
+                        <h3 class="font-bold mb-1 line-clamp-1 group-hover:text-accent transition-colors duration-300">Tokyo Revengers</h3>
+                        <p class="text-sm text-gray-400 line-clamp-1">S3 E8 - "La decisión de Takemichi"</p>
                         <p class="text-xs text-gray-500 mt-1">18:45 restantes</p>
                     </div>
-                </div>
+                </a>
 
-                <div class="bg-gray-900 rounded-lg overflow-hidden cursor-pointer group hover:ring-2 hover:ring-accent transition-all">
+                <a href="#" class="block bg-neutral-900 rounded-lg overflow-hidden group cursor-pointer hover:ring-2 hover:ring-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent transition-all">
                     <div class="aspect-video relative">
-                        <img src="https://latanime.org/assets/img/serie/episodio/bye-bye-earth-latino-15-1748041089.jpg" 
-                            alt="Mob Psycho 100" class="w-full h-full object-cover">
+                        <img src="https://latanime.org/assets/img/serie/episodio/bye-bye-earth-latino-15-1748041089.jpg"
+                            alt="Continuar viendo Mob Psycho 100" class="w-full h-full object-cover" loading="lazy">
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <button class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform">
+                            <button aria-label="Continuar viendo Mob Psycho 100" class="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform scale-0 group-hover:scale-100 transition-transform focus:outline-none">
                                 <i class="fas fa-play text-black text-xl ml-1"></i>
                             </button>
                         </div>
@@ -284,11 +280,11 @@
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold mb-1">Mob Psycho 100</h3>
-                        <p class="text-sm text-gray-400">S2 E10 - "Colapso"</p>
+                        <h3 class="font-bold mb-1 line-clamp-1 group-hover:text-accent transition-colors duration-300">Mob Psycho 100</h3>
+                        <p class="text-sm text-gray-400 line-clamp-1">S2 E10 - "Colapso"</p>
                         <p class="text-xs text-gray-500 mt-1">2:15 restantes</p>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -298,114 +294,247 @@
                     <div class="w-1 h-8 bg-accent rounded"></div>
                     Series Recientes
                 </h2>
-                <a href="#" class="text-accent hover:text-yellow-400 transition-colors flex items-center space-x-1">
+                <a href="catalogo.html" class="text-accent hover:text-yellow-400 transition-colors flex items-center space-x-1">
                     <span>Ver todo</span>
                     <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-                <div class="series-card group">
-                    <div class="relative aspect-[3/4] rounded-lg overflow-hidden bg-gray-900">
-                        <img src="https://latanime.org/thumbs/imagen/anne-shirley-latino-1745703268.jpg?v=1.5" 
-                            alt="Frieren" class="w-full h-full object-cover transition-transform duration-300">
-                        <div class="series-overlay">
-                            <div class="series-info">
-                                <h3 class="font-bold text-sm mb-1">Frieren</h3>
-                                <p class="text-xs text-gray-300 mb-2">26 episodios</p>
-                                <div class="flex items-center gap-2 text-xs">
-                                    <span class="bg-accent text-black px-2 py-1 rounded font-bold">9.5</span>
-                                    <span class="text-gray-400">Fantasía</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">
+       
+                <a href="#" class="group block bg-neutral-900 rounded-lg overflow-hidden shadow-lg hover:shadow-accent/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent">
+                    <div class="relative aspect-[3/4] overflow-hidden">
+                        <img src="https://latanime.org/thumbs/imagen/anne-shirley-latino-1745703268.jpg?v=1.5" alt="Frieren - Serie Reciente" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out" loading="lazy">
+                        
+                        <div class="absolute top-2.5 left-2.5 bg-red-600 text-white text-[0.65rem] font-bold px-1.5 py-0.5 rounded shadow">
                             NUEVO
                         </div>
-                    </div>
-                </div>
 
-                <div class="series-card group">
-                    <div class="relative aspect-[3/4] rounded-lg overflow-hidden bg-gray-900">
-                        <img src="https://latanime.org/thumbs/imagen/mono-latino-1746315759.jpg?v=1.5" 
-                            alt="Solo Leveling" class="w-full h-full object-cover transition-transform duration-300">
-                        <div class="series-overlay">
-                            <div class="series-info">
-                                <h3 class="font-bold text-sm mb-1">Solo Leveling</h3>
-                                <p class="text-xs text-gray-300 mb-2">12 episodios</p>
-                                <div class="flex items-center gap-2 text-xs">
-                                    <span class="bg-accent text-black px-2 py-1 rounded font-bold">8.9</span>
-                                    <span class="text-gray-400">Acción</span>
-                                </div>
-                            </div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                            <i class="fas fa-play text-white text-3xl"></i>
                         </div>
-                        <div class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+                    </div>
+                    <div class="p-3">
+                        <h3 class="font-semibold text-sm text-gray-100 mb-1 line-clamp-2 group-hover:text-accent transition-colors duration-200">
+                            Frieren
+                        </h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span class="line-clamp-1 pr-1 truncate">Fantasía</span>
+                            <span class="flex-shrink-0">26 Ep.</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="group block bg-neutral-900 rounded-lg overflow-hidden shadow-lg hover:shadow-accent/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-accent">
+                    <div class="relative aspect-[3/4] overflow-hidden">
+                        <img src="https://latanime.org/thumbs/imagen/mono-latino-1746315759.jpg?v=1.5" alt="Solo Leveling - Serie Reciente" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out" loading="lazy">
+
+                        <div class="absolute top-2.5 left-2.5 bg-green-600 text-white text-[0.65rem] font-bold px-1.5 py-0.5 rounded shadow">
                             EN EMISIÓN
                         </div>
+
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40">
+                            <i class="fas fa-play text-white text-3xl"></i>
+                        </div>
                     </div>
+                    <div class="p-3">
+                        <h3 class="font-semibold text-sm text-gray-100 mb-1 line-clamp-2 group-hover:text-accent transition-colors duration-200">
+                            Solo Leveling
+                        </h3>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span class="line-clamp-1 pr-1 truncate">Acción</span>
+                            <span class="flex-shrink-0">12 Ep.</span>
+                        </div>
+                    </div>
+                </a>
+            
                 </div>
-            </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 mt-20">
+    <footer class="bg-neutral-900 border-t border-neutral-800 mt-20">
         <div class="container mx-auto py-12 px-6 lg:px-12">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="font-bold mb-4">Navegación</h3>
+                    <h3 class="font-bold mb-4 text-white">Navegación</h3>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Inicio</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Catálogo</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Nuevos Episodios</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Populares</a></li>
+                        <li><a href="index.html" class="hover:text-accent transition-colors">Inicio</a></li>
+                        <li><a href="catalogo.html" class="hover:text-accent transition-colors">Catálogo</a></li>
+                        <li><a href="tendencia.html" class="hover:text-accent transition-colors">Tendencia</a></li>
+                        <li><a href="top.html" class="hover:text-accent transition-colors">Top Animes</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-bold mb-4">Géneros</h3>
+                    <h3 class="font-bold mb-4 text-white">Géneros Populares</h3>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Acción</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Romance</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Comedia</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Seinen</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Acción</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Romance</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Comedia</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Fantasía</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-bold mb-4">Ayuda</h3>
+                    <h3 class="font-bold mb-4 text-white">Ayuda</h3>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Contacto</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Términos de uso</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Privacidad</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Contacto</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Términos de uso</a></li>
+                        <li><a href="#" class="hover:text-accent transition-colors">Privacidad</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-bold mb-4">Síguenos</h3>
+                    <h3 class="font-bold mb-4 text-white">Síguenos</h3>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
+                        <a href="#" aria-label="Twitter" class="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
+                        <a href="#" aria-label="Facebook" class="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
                             <i class="fab fa-facebook"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
+                        <a href="#" aria-label="Instagram" class="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
+                        <a href="#" aria-label="Discord" class="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all">
                             <i class="fab fa-discord"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+            <div class="border-t border-neutral-800 mt-8 pt-8 text-center text-sm text-gray-400">
                 <p>&copy; 2024 AnimeStream. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Swiffy Slider JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>
+    <div id="authModal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" id="authModalOverlay"></div>
+        
+        <div class="relative flex items-center justify-center min-h-screen p-4">
+            <div class="relative w-full max-w-md bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-800/50 overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="authModalContent">
+                
+                <button id="closeAuthModal" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-800/50 hover:bg-gray-700/70 text-gray-400 hover:text-white transition-all z-10">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <div class="p-8 pt-14">
+                    <div class="flex mb-8 bg-gray-800/50 rounded-lg p-1">
+                        <button id="loginTab" class="flex-1 py-2.5 px-4 rounded-md text-sm font-medium transition-all bg-accent text-black">
+                            Iniciar Sesión
+                        </button>
+                        <button id="registerTab" class="flex-1 py-2.5 px-4 rounded-md text-sm font-medium transition-all text-gray-400 hover:text-white">
+                            Registrarse
+                        </button>
+                    </div>
+                    
+                    <form id="loginForm" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Email o Usuario</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-500"></i>
+                                </div>
+                                <input type="text" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="tu@email.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Contraseña</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-500"></i>
+                                </div>
+                                <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="••••••••">
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center cursor-pointer">
+                                <input type="checkbox" class="w-4 h-4 text-accent bg-gray-800 border-gray-600 rounded focus:ring-accent focus:ring-offset-0 focus:ring-2">
+                                <span class="ml-2 text-sm text-gray-400">Recordarme</span>
+                            </label>
+                            <a href="#" class="text-sm text-accent hover:text-yellow-400 transition-colors">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-accent hover:bg-yellow-500 text-black font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+                            Iniciar Sesión
+                        </button>
+                        
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-gray-700/50"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-4 bg-gray-900/95 text-gray-500">O continúa con</span>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" class="flex items-center justify-center gap-2 bg-gray-800/50 hover:bg-gray-700/70 text-gray-300 font-medium py-2.5 px-4 rounded-lg transition-all">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </button>
+                            <button type="button" class="flex items-center justify-center gap-2 bg-gray-800/50 hover:bg-gray-700/70 text-gray-300 font-medium py-2.5 px-4 rounded-lg transition-all">
+                                <i class="fab fa-discord"></i>
+                                Discord
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <form id="registerForm" class="space-y-5 hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Nombre de Usuario</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <input type="text" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="otaku_master">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-envelope text-gray-500"></i>
+                                </div>
+                                <input type="email" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="tu@email.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Contraseña</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-500"></i>
+                                </div>
+                                <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="••••••••">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Confirmar Contraseña</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-lock text-gray-500"></i>
+                                </div>
+                                <input type="password" class="w-full pl-10 pr-4 py-3 bg-gray-800/70 border border-gray-700/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="••••••••">
+                            </div>
+                        </div>
+                        
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 text-accent bg-gray-800 border-gray-600 rounded focus:ring-accent focus:ring-offset-0 focus:ring-2">
+                            <span class="ml-2 text-sm text-gray-400">Acepto los <a href="#" class="text-accent hover:text-yellow-400">términos y condiciones</a></span>
+                        </label>
+                        
+                        <button type="submit" class="w-full bg-accent hover:bg-yellow-500 text-black font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg">
+                            Crear Cuenta
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  
+    <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>
 </body>
 </html>
